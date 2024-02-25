@@ -1,9 +1,10 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QLabel>
+#include "src/field.hpp"
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
-    QLabel *label = new QLabel("Hello World!");
-    label->show();
+    Field field;
+    field.show();
     return app.exec();
 }

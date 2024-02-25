@@ -52,8 +52,11 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = racoon_gui.cpp 
-OBJECTS       = racoon_gui.o
+SOURCES       = racoon_gui.cpp \
+		src/field.cpp moc_field.cpp
+OBJECTS       = racoon_gui.o \
+		field.o \
+		moc_field.o
 DIST          = /usr/local/share/qt/mkspecs/features/spec_pre.prf \
 		/usr/local/share/qt/mkspecs/features/device_config.prf \
 		/usr/local/Cellar/qt/6.6.2_1/share/qt/mkspecs/common/unix.conf \
@@ -366,7 +369,8 @@ DIST          = /usr/local/share/qt/mkspecs/features/spec_pre.prf \
 		/usr/local/share/qt/mkspecs/features/exceptions.prf \
 		/usr/local/share/qt/mkspecs/features/yacc.prf \
 		/usr/local/share/qt/mkspecs/features/lex.prf \
-		racoon_gui.pro  racoon_gui.cpp
+		racoon_gui.pro src/field.hpp racoon_gui.cpp \
+		src/field.cpp
 QMAKE_TARGET  = racoon_gui
 DESTDIR       = 
 TARGET        = racoon_gui.app/Contents/MacOS/racoon_gui
@@ -1049,7 +1053,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/local/share/qt/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents racoon_gui.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents src/field.hpp $(DISTDIR)/
+	$(COPY_FILE) --parents racoon_gui.cpp src/field.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -1084,8 +1089,14 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/local/share/qt/mkspecs/features/data/dummy.cpp
 	/Library/Developer/CommandLineTools/usr/bin/clang++ -pipe -stdlib=libc++ -O2 -std=gnu++1z $(EXPORT_ARCH_ARGS) -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -mmacosx-version-min=14.0 -Wall -Wextra -fPIC -dM -E -o moc_predefs.h /usr/local/share/qt/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all:
+compiler_moc_header_make_all: moc_field.cpp
 compiler_moc_header_clean:
+	-$(DEL_FILE) moc_field.cpp
+moc_field.cpp: src/field.hpp \
+		moc_predefs.h \
+		/usr/local/share/qt/libexec/moc
+	/usr/local/share/qt/libexec/moc $(DEFINES) --include /Users/mukuyo/ws/ssl_ws/racoon_gui/moc_predefs.h -I/usr/local/share/qt/mkspecs/macx-clang -I/Users/mukuyo/ws/ssl_ws/racoon_gui -I/Users/mukuyo/ws/ssl_ws/racoon_gui -I/usr/local/lib/QtWidgets.framework/Headers -I/usr/local/lib/QtGui.framework/Headers -I/usr/local/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -I/Library/Developer/CommandLineTools/usr/include -F/usr/local/lib src/field.hpp -o moc_field.cpp
+
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
@@ -1100,12 +1111,20 @@ compiler_yacc_impl_make_all:
 compiler_yacc_impl_clean:
 compiler_lex_make_all:
 compiler_lex_clean:
-compiler_clean: compiler_moc_predefs_clean 
+compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean 
 
 ####### Compile
 
-racoon_gui.o: racoon_gui.cpp 
+racoon_gui.o: racoon_gui.cpp src/field.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o racoon_gui.o racoon_gui.cpp
+
+field.o: src/field.cpp src/field.hpp \
+		/usr/local/lib/QtGui.framework/Headers/QPainter \
+		/usr/local/lib/QtGui.framework/Headers/qpainter.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o field.o src/field.cpp
+
+moc_field.o: moc_field.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_field.o moc_field.cpp
 
 ####### Install
 
