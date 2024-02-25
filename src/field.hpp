@@ -16,10 +16,16 @@ protected:
     QScreen *screen;
     QSize screen_size;
 
+    QPoint field_center;
+
     int screen_height;
     int screen_width;
     int slide_height;
     int slide_width;
+    int field_width;
+    int field_height;
+
+    float ratio;
 };
 
 #endif
