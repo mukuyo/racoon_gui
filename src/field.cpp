@@ -49,4 +49,15 @@ void Field::paintEvent(QPaintEvent *event)
     //line
     painter.drawLine(field_center.x(), slide_height, field_center.x(), field_height + slide_height);
     painter.drawLine(slide_width, field_center.y(), field_width + slide_width, field_center.y());
+
+    //ball
+    painter.setBrush(QColor(255, 165, 0));
+    painter.setPen(QColor(255, 165, 0));
+    painter.drawEllipse(200, 200, 2, 2);
+
+    //robot
+    // painter.drawChord(
+        // 100, 100,180*ratio,180*ratio,
+        // int(degrees(MU.radian_normalize(robot.theta - radians(45))) * 16),
+        // int(MU.radian_normalize(0 - 45*M_PI/180.0)*180.0/M_PI)*16,275 * 16);
 }
