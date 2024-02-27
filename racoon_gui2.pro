@@ -24,6 +24,7 @@ macx {
 
 INCLUDEPATH += \
     src \
+    /usr/local/include/ \
     proto/cpp/ \
 
 # You can make your code fail to compile if you use deprecated APIs.
@@ -36,16 +37,12 @@ INCLUDEPATH += \
 # Input
 HEADERS += \
     src/field.hpp \
-    proto/cpp/ssl_vision_detection.pb.h \
     proto/cpp/ssl_vision_geometry.pb.h \
-    proto/cpp/ssl_vision_wrapper.pb.h \
 
 SOURCES += \
     racoon_gui.cpp \
     src/field.cpp \
-    proto/cpp/ssl_vision_detection.pb.cc \
     proto/cpp/ssl_vision_geometry.pb.cc \
-    proto/cpp/ssl_vision_wrapper.pb.cc \
 
 
 win32 {
@@ -85,8 +82,8 @@ unix:!macx{
 }
 
 macx {
-    PROTOBUF_INCLUDE_DIR = $${THIRD_PARTY_DIR}/protobuf@21/21.12/include
-    PROTOBUF_LIB = $${THIRD_PARTY_DIR}/protobuf@21/21.12/lib/libprotobuf.a
+    PROTOBUF_INCLUDE_DIR = ~/.local/opt/protobuf/include
+    PROTOBUF_LIB = ~/.local/opt/protobuf/lib/libprotobuf.a
     ZLIB_INCLUDE_DIR = $${THIRD_PARTY_DIR}/zlib/include
     ZLIB_LIB = $${THIRD_PARTY_DIR}/zlib/1.3.1/lib/libz.a
     EIGEN_INCLUDE_DIR = $${THIRD_PARTY_DIR}/Eigen
@@ -112,5 +109,6 @@ LIBS += $$PROTOBUF_LIB \
         $$ZLIB_LIB
 
 INCLUDEPATH += $$PROTOBUF_INCLUDE_DIR \
+               ~/.local/opt/protobuf/src \
                $$ZLIB_INCLUDE_DIR \
                $$EIGEN_INCLUDE_DIR
