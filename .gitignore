@@ -3,5 +3,5 @@
 .DS_Store
 temp/
 bin/
-proto/cpp/
-
+proto/cpp/*
+proto/.DS_Store
