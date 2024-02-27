@@ -35,11 +35,10 @@ void Receiver::recv()
     if(n > 0)
     {
         if (info.ParseFromArray(buffer, n)) {
-            // ball_x 
-            // ball = info.detection().balls();
             for (int i = 0; i < info.detection().balls().size(); i++)
             {
-                std::cout << info.detection().balls()[i].x() << std::endl;
+                ball = info.detection().balls()[i];
+                std::cout << ball.x() << std::endl;
             }
         }
     }

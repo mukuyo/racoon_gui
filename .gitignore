@@ -1,0 +1,7 @@
+.qmake.stash
+.vscode/
+.DS_Store
+temp/
+bin/
+proto/cpp/
+
