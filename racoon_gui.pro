@@ -3,8 +3,28 @@
 ######################################################################
 
 TEMPLATE = app
+CONFIG += c++11
+QT += widgets qml quick
 TARGET = racoon_gui
-INCLUDEPATH += .
+DESTDIR = $$PWD/bin
+MOC_DIR = ./temp
+OBJECTS_DIR = ./temp
+
+# Third party library dir
+win32 {
+    THIRD_PARTY_DIR = $$PWD/3rdParty
+}
+unix:!macx{
+    THIRD_PARTY_DIR = /usr/local
+    PROTOBUF2_DIR = $${THIRD_PARTY_DIR}# /usr/local/cellar/protobuf2
+}
+macx {
+    THIRD_PARTY_DIR = /usr/local/Cellar
+}
+
+INCLUDEPATH += \
+    src \
+    proto/cpp/ \
 
 # You can make your code fail to compile if you use deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -14,8 +34,107 @@ INCLUDEPATH += .
 #DEFINES += QT_DISABLE_DEPRECATED_UP_TO=0x060000 # disables all APIs deprecated in Qt 6.0.0 and earlier
 
 # Input
-HEADERS += src/field.hpp
+HEADERS += \
+    src/field.hpp \
+    network/receiver.hpp \
+    proto/cpp/grSim_Commands.pb.h \
+    proto/cpp/grSim_Packet.pb.h \
+    proto/cpp/grSim_Replacement.pb.h \
+    proto/cpp/grSim_Robotstatus.pb.h \
+    proto/cpp/ssl_gc_common.pb.h \
+    proto/cpp/ssl_gc_geometry.pb.h \
+    proto/cpp/ssl_gc_referee_message.pb.h \
+    proto/cpp/ssl_gc_state.pb.h \
+    proto/cpp/ssl_gc_game_event.pb.h \
+    proto/cpp/ssl_vision_detection.pb.h \
+    proto/cpp/ssl_vision_geometry.pb.h \
+    proto/cpp/ssl_vision_wrapper.pb.h \
+    proto/cpp/ssl_vision_wrapper_tracked.pb.h \
+    proto/cpp/ssl_vision_detection_tracked.pb.h \
 
-SOURCES += racoon_gui.cpp \
-    src/field.cpp
-QT+=widgets
+SOURCES += \
+    racoon_gui.cpp \
+    src/field.cpp \
+    network/receiver.cpp \
+    proto/cpp/grSim_Commands.pb.cc \
+    proto/cpp/grSim_Packet.pb.cc \
+    proto/cpp/grSim_Replacement.pb.cc \
+    proto/cpp/grSim_Robotstatus.pb.cc \
+    proto/cpp/ssl_gc_common.pb.cc \
+    proto/cpp/ssl_gc_geometry.pb.cc \    
+    proto/cpp/ssl_gc_referee_message.pb.cc \
+    proto/cpp/ssl_gc_state.pb.cc \
+    proto/cpp/ssl_gc_game_event.pb.cc \
+    proto/cpp/ssl_vision_detection.pb.cc \
+    proto/cpp/ssl_vision_geometry.pb.cc \
+    proto/cpp/ssl_vision_wrapper.pb.cc \
+    proto/cpp/ssl_vision_wrapper_tracked.pb.cc \
+    proto/cpp/ssl_vision_detection_tracked.pb.cc \
+
+
+win32 {
+    PROTOBUF_INCLUDE_DIR = $${THIRD_PARTY_DIR}/protobuf/include
+    ZLIB_INCLUDE_DIR = $${THIRD_PARTY_DIR}/zlib/include
+    EIGEN_INCLUDE_DIR = $${THIRD_PARTY_DIR}/Eigen
+
+    contains(QMAKE_TARGET.arch, x86_64){
+        message("64-bit")
+        CONFIG(release,debug|release){
+            PROTOBUF_LIB = $${THIRD_PARTY_DIR}/protobuf/lib/x64/libprotobuf.lib
+            ZLIB_LIB = $${THIRD_PARTY_DIR}/zlib/lib/x64/zlib.lib
+        }
+        CONFIG(debug,debug|release){
+            PROTOBUF_LIB = $${THIRD_PARTY_DIR}/protobuf/lib/x64/libprotobufd.lib
+            ZLIB_LIB = $${THIRD_PARTY_DIR}/zlib/lib/x64/zlibD.lib
+        }
+    } else {
+        message("32-bit")
+        CONFIG(release,debug|release){
+            PROTOBUF_LIB = $${THIRD_PARTY_DIR}/protobuf/lib/x86/libprotobuf.lib
+            ZLIB_LIB = $${THIRD_PARTY_DIR}/zlib/lib/x86/zlib.lib
+        }
+        CONFIG(debug,debug|release){
+            PROTOBUF_LIB = $${THIRD_PARTY_DIR}/protobuf/lib/x86/libprotobufd.lib
+            ZLIB_LIB = $${THIRD_PARTY_DIR}/zlib/lib/x86/zlib.lib
+        }
+    }
+}
+
+unix:!macx{
+    PROTOBUF_INCLUDE_DIR = $${PROTOBUF2_DIR}/include
+    PROTOBUF_LIB = $${PROTOBUF2_DIR}/lib/libprotobuf.a
+    ZLIB_INCLUDE_DIR = $${THIRD_PARTY_DIR}/zlib/include
+    ZLIB_LIB = -lz
+    EIGEN_INCLUDE_DIR = /usr/include/eigen3
+}
+
+macx {
+    PROTOBUF_INCLUDE_DIR = $${THIRD_PARTY_DIR}/protobuf@21/21.12/include
+    PROTOBUF_LIB = $${THIRD_PARTY_DIR}/protobuf@21/21.12/lib/libprotobuf.a
+    ZLIB_INCLUDE_DIR = $${THIRD_PARTY_DIR}/zlib/include
+    ZLIB_LIB = $${THIRD_PARTY_DIR}/zlib/1.3.1/lib/libz.a
+    EIGEN_INCLUDE_DIR = $${THIRD_PARTY_DIR}/Eigen
+}
+
+defineTest(copyToDestdir) {
+    files = $$1
+    for(FILE, files) {
+        macx {
+            DDIR = $${DESTDIR}/$${TARGET}.app/Contents/MacOS
+        }else {
+            DDIR = $$DESTDIR
+        }
+        # Replace slashes in paths with backslashes for Windows
+        win32:FILE ~= s,/,\\,g
+        win32:DDIR ~= s,/,\\,g
+        QMAKE_POST_LINK += $$QMAKE_COPY $$quote($$FILE) $$quote($$DDIR) $$escape_expand(\\n\\t)
+    }
+    export(QMAKE_POST_LINK)
+}
+
+LIBS += $$PROTOBUF_LIB \
+        $$ZLIB_LIB
+
+INCLUDEPATH += $$PROTOBUF_INCLUDE_DIR \
+               $$ZLIB_INCLUDE_DIR \
+               $$EIGEN_INCLUDE_DIR
