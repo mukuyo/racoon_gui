@@ -32,7 +32,15 @@ void Receiver::recv()
 
     int n = recvfrom(sockfd, buffer, 1024, 0, (struct sockaddr*)&servaddr, &len);
     
-    if (info.ParseFromArray(buffer, n)) {
-        std::cout << info.detection().camera_id() << std::endl;
+    if(n > 0)
+    {
+        if (info.ParseFromArray(buffer, n)) {
+            // ball_x 
+            // ball = info.detection().balls();
+            for (int i = 0; i < info.detection().balls().size(); i++)
+            {
+                std::cout << info.detection().balls()[i].x() << std::endl;
+            }
+        }
     }
 }

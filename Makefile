@@ -54,14 +54,38 @@ OBJECTS_DIR   = temp/
 
 SOURCES       = racoon_gui.cpp \
 		src/field.cpp \
+		network/receiver.cpp \
+		proto/cpp/grSim_Commands.pb.cc \
+		proto/cpp/grSim_Packet.pb.cc \
+		proto/cpp/grSim_Replacement.pb.cc \
+		proto/cpp/grSim_Robotstatus.pb.cc \
+		proto/cpp/ssl_gc_common.pb.cc \
+		proto/cpp/ssl_gc_geometry.pb.cc \
+		proto/cpp/ssl_gc_referee_message.pb.cc \
+		proto/cpp/ssl_gc_state.pb.cc \
+		proto/cpp/ssl_gc_game_event.pb.cc \
 		proto/cpp/ssl_vision_detection.pb.cc \
 		proto/cpp/ssl_vision_geometry.pb.cc \
-		proto/cpp/ssl_vision_wrapper.pb.cc temp/moc_field.cpp
+		proto/cpp/ssl_vision_wrapper.pb.cc \
+		proto/cpp/ssl_vision_wrapper_tracked.pb.cc \
+		proto/cpp/ssl_vision_detection_tracked.pb.cc temp/moc_field.cpp
 OBJECTS       = temp/racoon_gui.o \
 		temp/field.o \
+		temp/receiver.o \
+		temp/grSim_Commands.pb.o \
+		temp/grSim_Packet.pb.o \
+		temp/grSim_Replacement.pb.o \
+		temp/grSim_Robotstatus.pb.o \
+		temp/ssl_gc_common.pb.o \
+		temp/ssl_gc_geometry.pb.o \
+		temp/ssl_gc_referee_message.pb.o \
+		temp/ssl_gc_state.pb.o \
+		temp/ssl_gc_game_event.pb.o \
 		temp/ssl_vision_detection.pb.o \
 		temp/ssl_vision_geometry.pb.o \
 		temp/ssl_vision_wrapper.pb.o \
+		temp/ssl_vision_wrapper_tracked.pb.o \
+		temp/ssl_vision_detection_tracked.pb.o \
 		temp/moc_field.o
 DIST          = /usr/local/share/qt/mkspecs/features/spec_pre.prf \
 		/usr/local/share/qt/mkspecs/features/device_config.prf \
@@ -376,13 +400,37 @@ DIST          = /usr/local/share/qt/mkspecs/features/spec_pre.prf \
 		/usr/local/share/qt/mkspecs/features/yacc.prf \
 		/usr/local/share/qt/mkspecs/features/lex.prf \
 		racoon_gui.pro src/field.hpp \
+		network/receiver.hpp \
+		proto/cpp/grSim_Commands.pb.h \
+		proto/cpp/grSim_Packet.pb.h \
+		proto/cpp/grSim_Replacement.pb.h \
+		proto/cpp/grSim_Robotstatus.pb.h \
+		proto/cpp/ssl_gc_common.pb.h \
+		proto/cpp/ssl_gc_geometry.pb.h \
+		proto/cpp/ssl_gc_referee_message.pb.h \
+		proto/cpp/ssl_gc_state.pb.h \
+		proto/cpp/ssl_gc_game_event.pb.h \
 		proto/cpp/ssl_vision_detection.pb.h \
 		proto/cpp/ssl_vision_geometry.pb.h \
-		proto/cpp/ssl_vision_wrapper.pb.h racoon_gui.cpp \
+		proto/cpp/ssl_vision_wrapper.pb.h \
+		proto/cpp/ssl_vision_wrapper_tracked.pb.h \
+		proto/cpp/ssl_vision_detection_tracked.pb.h racoon_gui.cpp \
 		src/field.cpp \
+		network/receiver.cpp \
+		proto/cpp/grSim_Commands.pb.cc \
+		proto/cpp/grSim_Packet.pb.cc \
+		proto/cpp/grSim_Replacement.pb.cc \
+		proto/cpp/grSim_Robotstatus.pb.cc \
+		proto/cpp/ssl_gc_common.pb.cc \
+		proto/cpp/ssl_gc_geometry.pb.cc \
+		proto/cpp/ssl_gc_referee_message.pb.cc \
+		proto/cpp/ssl_gc_state.pb.cc \
+		proto/cpp/ssl_gc_game_event.pb.cc \
 		proto/cpp/ssl_vision_detection.pb.cc \
 		proto/cpp/ssl_vision_geometry.pb.cc \
-		proto/cpp/ssl_vision_wrapper.pb.cc
+		proto/cpp/ssl_vision_wrapper.pb.cc \
+		proto/cpp/ssl_vision_wrapper_tracked.pb.cc \
+		proto/cpp/ssl_vision_detection_tracked.pb.cc
 QMAKE_TARGET  = racoon_gui
 DESTDIR       = bin/
 TARGET        = bin/racoon_gui.app/Contents/MacOS/racoon_gui
@@ -1075,8 +1123,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/local/share/qt/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents src/field.hpp proto/cpp/ssl_vision_detection.pb.h proto/cpp/ssl_vision_geometry.pb.h proto/cpp/ssl_vision_wrapper.pb.h $(DISTDIR)/
-	$(COPY_FILE) --parents racoon_gui.cpp src/field.cpp proto/cpp/ssl_vision_detection.pb.cc proto/cpp/ssl_vision_geometry.pb.cc proto/cpp/ssl_vision_wrapper.pb.cc $(DISTDIR)/
+	$(COPY_FILE) --parents src/field.hpp network/receiver.hpp proto/cpp/grSim_Commands.pb.h proto/cpp/grSim_Packet.pb.h proto/cpp/grSim_Replacement.pb.h proto/cpp/grSim_Robotstatus.pb.h proto/cpp/ssl_gc_common.pb.h proto/cpp/ssl_gc_geometry.pb.h proto/cpp/ssl_gc_referee_message.pb.h proto/cpp/ssl_gc_state.pb.h proto/cpp/ssl_gc_game_event.pb.h proto/cpp/ssl_vision_detection.pb.h proto/cpp/ssl_vision_geometry.pb.h proto/cpp/ssl_vision_wrapper.pb.h proto/cpp/ssl_vision_wrapper_tracked.pb.h proto/cpp/ssl_vision_detection_tracked.pb.h $(DISTDIR)/
+	$(COPY_FILE) --parents racoon_gui.cpp src/field.cpp network/receiver.cpp proto/cpp/grSim_Commands.pb.cc proto/cpp/grSim_Packet.pb.cc proto/cpp/grSim_Replacement.pb.cc proto/cpp/grSim_Robotstatus.pb.cc proto/cpp/ssl_gc_common.pb.cc proto/cpp/ssl_gc_geometry.pb.cc proto/cpp/ssl_gc_referee_message.pb.cc proto/cpp/ssl_gc_state.pb.cc proto/cpp/ssl_gc_game_event.pb.cc proto/cpp/ssl_vision_detection.pb.cc proto/cpp/ssl_vision_geometry.pb.cc proto/cpp/ssl_vision_wrapper.pb.cc proto/cpp/ssl_vision_wrapper_tracked.pb.cc proto/cpp/ssl_vision_detection_tracked.pb.cc $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -1302,7 +1350,249 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean
 
 ####### Compile
 
-temp/racoon_gui.o: racoon_gui.cpp 
+temp/racoon_gui.o: racoon_gui.cpp /usr/local/include/QtWidgets/QApplication \
+		/usr/local/include/QtWidgets/qapplication.h \
+		/usr/local/include/QtWidgets/qtwidgetsglobal.h \
+		/usr/local/include/QtGui/qtguiglobal.h \
+		/usr/local/include/QtCore/qglobal.h \
+		/usr/local/include/QtCore/qtversionchecks.h \
+		/usr/local/include/QtCore/qtconfiginclude.h \
+		/usr/local/include/QtCore/qconfig.h \
+		/usr/local/include/QtCore/qtcore-config.h \
+		/usr/local/include/QtCore/qtconfigmacros.h \
+		/usr/local/include/QtCore/qtcoreexports.h \
+		/usr/local/include/QtCore/qcompilerdetection.h \
+		/usr/local/include/QtCore/qsystemdetection.h \
+		/usr/local/include/QtCore/qprocessordetection.h \
+		/usr/local/include/QtCore/qtdeprecationmarkers.h \
+		/usr/local/include/QtCore/qtpreprocessorsupport.h \
+		/usr/local/include/QtCore/qassert.h \
+		/usr/local/include/QtCore/qtnoop.h \
+		/usr/local/include/QtCore/qtypes.h \
+		/usr/local/include/QtCore/qtversion.h \
+		/usr/local/include/QtCore/qtclasshelpermacros.h \
+		/usr/local/include/QtCore/qtypeinfo.h \
+		/usr/local/include/QtCore/qcontainerfwd.h \
+		/usr/local/include/QtCore/qsysinfo.h \
+		/usr/local/include/QtCore/qlogging.h \
+		/usr/local/include/QtCore/qflags.h \
+		/usr/local/include/QtCore/qcompare_impl.h \
+		/usr/local/include/QtCore/qatomic.h \
+		/usr/local/include/QtCore/qbasicatomic.h \
+		/usr/local/include/QtCore/qatomic_cxx11.h \
+		/usr/local/include/QtCore/qgenericatomic.h \
+		/usr/local/include/QtCore/qconstructormacros.h \
+		/usr/local/include/QtCore/qdarwinhelpers.h \
+		/usr/local/include/QtCore/qexceptionhandling.h \
+		/usr/local/include/QtCore/qforeach.h \
+		/usr/local/include/QtCore/qttypetraits.h \
+		/usr/local/include/QtCore/qfunctionpointer.h \
+		/usr/local/include/QtCore/qglobalstatic.h \
+		/usr/local/include/QtCore/qmalloc.h \
+		/usr/local/include/QtCore/qminmax.h \
+		/usr/local/include/QtCore/qnumeric.h \
+		/usr/local/include/QtCore/qoverload.h \
+		/usr/local/include/QtCore/qswap.h \
+		/usr/local/include/QtCore/qtenvironmentvariables.h \
+		/usr/local/include/QtCore/qtresource.h \
+		/usr/local/include/QtCore/qttranslation.h \
+		/usr/local/include/QtCore/qversiontagging.h \
+		/usr/local/include/QtGui/qtgui-config.h \
+		/usr/local/include/QtGui/qtguiexports.h \
+		/usr/local/include/QtWidgets/qtwidgets-config.h \
+		/usr/local/include/QtWidgets/qtwidgetsexports.h \
+		/usr/local/include/QtCore/qcoreapplication.h \
+		/usr/local/include/QtCore/qstring.h \
+		/usr/local/include/QtCore/qchar.h \
+		/usr/local/include/QtCore/qstringview.h \
+		/usr/local/include/QtCore/qbytearray.h \
+		/usr/local/include/QtCore/qrefcount.h \
+		/usr/local/include/QtCore/qnamespace.h \
+		/usr/local/include/QtCore/qtmetamacros.h \
+		/usr/local/include/QtCore/qarraydata.h \
+		/usr/local/include/QtCore/qpair.h \
+		/usr/local/include/QtCore/qarraydatapointer.h \
+		/usr/local/include/QtCore/qarraydataops.h \
+		/usr/local/include/QtCore/qcontainertools_impl.h \
+		/usr/local/include/QtCore/qxptype_traits.h \
+		/usr/local/include/QtCore/q20functional.h \
+		/usr/local/include/QtCore/q20memory.h \
+		/usr/local/include/QtCore/qbytearrayalgorithms.h \
+		/usr/local/include/QtCore/qbytearrayview.h \
+		/usr/local/include/QtCore/qstringfwd.h \
+		/usr/local/include/QtCore/q20type_traits.h \
+		/usr/local/include/QtCore/qstringliteral.h \
+		/usr/local/include/QtCore/qstringalgorithms.h \
+		/usr/local/include/QtCore/qlatin1stringview.h \
+		/usr/local/include/QtCore/qanystringview.h \
+		/usr/local/include/QtCore/qutf8stringview.h \
+		/usr/local/include/QtCore/qstringtokenizer.h \
+		/usr/local/include/QtCore/qstringbuilder.h \
+		/usr/local/include/QtCore/qcoreevent.h \
+		/usr/local/include/QtCore/qobjectdefs.h \
+		/usr/local/include/QtCore/qobjectdefs_impl.h \
+		/usr/local/include/QtCore/qfunctionaltools_impl.h \
+		/usr/local/include/QtCore/qeventloop.h \
+		/usr/local/include/QtCore/qobject.h \
+		/usr/local/include/QtCore/qlist.h \
+		/usr/local/include/QtCore/qhashfunctions.h \
+		/usr/local/include/QtCore/qiterator.h \
+		/usr/local/include/QtCore/qbytearraylist.h \
+		/usr/local/include/QtCore/qstringlist.h \
+		/usr/local/include/QtCore/qalgorithms.h \
+		/usr/local/include/QtCore/qstringmatcher.h \
+		/usr/local/include/QtCore/qscopedpointer.h \
+		/usr/local/include/QtCore/qmetatype.h \
+		/usr/local/include/QtCore/qcompare.h \
+		/usr/local/include/QtCore/qdatastream.h \
+		/usr/local/include/QtCore/qiodevicebase.h \
+		/usr/local/include/QtCore/qfloat16.h \
+		/usr/local/include/QtCore/qmath.h \
+		/usr/local/include/QtCore/qiterable.h \
+		/usr/local/include/QtCore/qmetacontainer.h \
+		/usr/local/include/QtCore/qcontainerinfo.h \
+		/usr/local/include/QtCore/qtaggedpointer.h \
+		/usr/local/include/QtCore/qscopeguard.h \
+		/usr/local/include/QtCore/qobject_impl.h \
+		/usr/local/include/QtCore/qbindingstorage.h \
+		/usr/local/include/QtCore/qnativeinterface.h \
+		/usr/local/include/QtCore/qdebug.h \
+		/usr/local/include/QtCore/qtextstream.h \
+		/usr/local/include/QtCore/qstringconverter_base.h \
+		/usr/local/include/QtCore/qcontiguouscache.h \
+		/usr/local/include/QtCore/qsharedpointer.h \
+		/usr/local/include/QtCore/qshareddata.h \
+		/usr/local/include/QtCore/qsharedpointer_impl.h \
+		/usr/local/include/QtCore/qmap.h \
+		/usr/local/include/QtCore/qshareddata_impl.h \
+		/usr/local/include/QtCore/qset.h \
+		/usr/local/include/QtCore/qhash.h \
+		/usr/local/include/QtCore/qvarlengtharray.h \
+		/usr/local/include/QtCore/qcoreapplication_platform.h \
+		/usr/local/include/QtCore/qfuture.h \
+		/usr/local/include/QtCore/qfutureinterface.h \
+		/usr/local/include/QtCore/qmutex.h \
+		/usr/local/include/QtCore/qdeadlinetimer.h \
+		/usr/local/include/QtCore/qelapsedtimer.h \
+		/usr/local/include/QtCore/qtsan_impl.h \
+		/usr/local/include/QtCore/qresultstore.h \
+		/usr/local/include/QtCore/qfuture_impl.h \
+		/usr/local/include/QtCore/qthreadpool.h \
+		/usr/local/include/QtCore/qthread.h \
+		/usr/local/include/QtCore/qrunnable.h \
+		/usr/local/include/QtCore/qexception.h \
+		/usr/local/include/QtCore/qpointer.h \
+		/usr/local/include/QtCore/qpromise.h \
+		/usr/local/include/QtCore/qvariant.h \
+		/usr/local/include/QtCore/q23utility.h \
+		/usr/local/include/QtGui/qwindowdefs.h \
+		/usr/local/include/QtCore/qpoint.h \
+		/usr/local/include/QtCore/qsize.h \
+		/usr/local/include/QtCore/qmargins.h \
+		/usr/local/include/QtGui/qcursor.h \
+		/usr/local/include/QtGui/qbitmap.h \
+		/usr/local/include/QtGui/qpixmap.h \
+		/usr/local/include/QtGui/qpaintdevice.h \
+		/usr/local/include/QtCore/qrect.h \
+		/usr/local/include/QtGui/qcolor.h \
+		/usr/local/include/QtGui/qrgb.h \
+		/usr/local/include/QtGui/qrgba64.h \
+		/usr/local/include/QtGui/qimage.h \
+		/usr/local/include/QtGui/qpixelformat.h \
+		/usr/local/include/QtGui/qtransform.h \
+		/usr/local/include/QtGui/qpolygon.h \
+		/usr/local/include/QtGui/qregion.h \
+		/usr/local/include/QtCore/qline.h \
+		/usr/local/include/QtGui/qguiapplication.h \
+		/usr/local/include/QtGui/qinputmethod.h \
+		/usr/local/include/QtCore/qlocale.h \
+		/usr/local/include/QtGui/qguiapplication_platform.h \
+		/usr/local/include/QtWidgets/QLabel \
+		/usr/local/include/QtWidgets/qlabel.h \
+		/usr/local/include/QtWidgets/qframe.h \
+		/usr/local/include/QtWidgets/qwidget.h \
+		/usr/local/include/QtGui/qaction.h \
+		/usr/local/include/QtGui/qkeysequence.h \
+		/usr/local/include/QtGui/qicon.h \
+		/usr/local/include/QtGui/qpalette.h \
+		/usr/local/include/QtGui/qbrush.h \
+		/usr/local/include/QtGui/qfont.h \
+		/usr/local/include/QtGui/qfontmetrics.h \
+		/usr/local/include/QtGui/qfontinfo.h \
+		/usr/local/include/QtWidgets/qsizepolicy.h \
+		/usr/local/include/QtGui/qevent.h \
+		/usr/local/include/QtCore/qiodevice.h \
+		/usr/local/include/QtCore/qurl.h \
+		/usr/local/include/QtGui/qeventpoint.h \
+		/usr/local/include/QtGui/qvector2d.h \
+		/usr/local/include/QtGui/qvectornd.h \
+		/usr/local/include/QtGui/qpointingdevice.h \
+		/usr/local/include/QtGui/qinputdevice.h \
+		/usr/local/include/QtGui/qscreen.h \
+		/usr/local/include/QtCore/QList \
+		/usr/local/include/QtCore/QObject \
+		/usr/local/include/QtCore/QRect \
+		/usr/local/include/QtCore/QSize \
+		/usr/local/include/QtCore/QSizeF \
+		/usr/local/include/QtGui/QTransform \
+		/usr/local/include/QtGui/qpicture.h \
+		/usr/local/include/QtGui/qtextdocument.h \
+		src/field.hpp \
+		/usr/local/include/QtWidgets/QWidget \
+		/usr/local/lib/QtGui.framework/Headers/QScreen \
+		/usr/local/lib/QtGui.framework/Headers/qscreen.h \
+		/usr/local/lib/QtCore.framework/Headers/QSize \
+		/usr/local/lib/QtCore.framework/Headers/qsize.h \
+		network/receiver.hpp \
+		proto/cpp/ssl_vision_wrapper.pb.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/port_def.inc \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/port_undef.inc \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/io/coded_stream.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/common.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/macros.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/platform_macros.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/port.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/stringpiece.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/hash.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/logging.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/status.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/strutil.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/port.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arena.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arena_impl.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arenaz_sampler.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arenastring.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/explicitly_constructed.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_message_util.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/once.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/any.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/message_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/metadata_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/has_bits.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/implicit_weak_message.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/repeated_field.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/repeated_ptr_field.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/wire_format_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/casts.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_message_reflection.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/descriptor.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/mutex.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_enum_reflection.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_enum_util.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/unknown_field_set.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/io/zero_copy_stream_impl_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/callback.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/io/zero_copy_stream.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/stl_util.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/parse_context.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/endian.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/inlined_string_field.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/message.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/map.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/map_type_handler.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/extension_set.h \
+		proto/cpp/ssl_vision_detection.pb.h \
+		proto/cpp/ssl_vision_geometry.pb.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o temp/racoon_gui.o racoon_gui.cpp
 
 temp/field.o: src/field.cpp src/field.hpp \
@@ -1499,6 +1789,535 @@ temp/field.o: src/field.cpp src/field.hpp \
 		/usr/local/include/QtGui/qguiapplication_platform.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o temp/field.o src/field.cpp
 
+temp/receiver.o: network/receiver.cpp network/receiver.hpp \
+		proto/cpp/ssl_vision_wrapper.pb.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/port_def.inc \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/port_undef.inc \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/io/coded_stream.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/common.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/macros.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/platform_macros.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/port.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/stringpiece.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/hash.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/logging.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/status.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/strutil.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/port.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arena.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arena_impl.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arenaz_sampler.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arenastring.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/explicitly_constructed.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_message_util.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/once.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/any.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/message_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/metadata_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/has_bits.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/implicit_weak_message.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/repeated_field.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/repeated_ptr_field.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/wire_format_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/casts.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_message_reflection.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/descriptor.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/mutex.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_enum_reflection.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_enum_util.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/unknown_field_set.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/io/zero_copy_stream_impl_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/callback.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/io/zero_copy_stream.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/stl_util.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/parse_context.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/endian.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/inlined_string_field.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/message.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/map.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/map_type_handler.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/extension_set.h \
+		proto/cpp/ssl_vision_detection.pb.h \
+		proto/cpp/ssl_vision_geometry.pb.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o temp/receiver.o network/receiver.cpp
+
+temp/grSim_Commands.pb.o: proto/cpp/grSim_Commands.pb.cc proto/cpp/grSim_Commands.pb.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/port_def.inc \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/port_undef.inc \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/io/coded_stream.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/common.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/macros.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/platform_macros.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/port.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/stringpiece.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/hash.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/logging.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/status.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/strutil.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/port.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arena.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arena_impl.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arenaz_sampler.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arenastring.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/explicitly_constructed.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_message_util.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/once.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/any.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/message_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/metadata_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/has_bits.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/implicit_weak_message.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/repeated_field.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/repeated_ptr_field.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/wire_format_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/casts.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_message_reflection.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/descriptor.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/mutex.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_enum_reflection.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_enum_util.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/unknown_field_set.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/io/zero_copy_stream_impl_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/callback.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/io/zero_copy_stream.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/stl_util.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/parse_context.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/endian.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/inlined_string_field.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/message.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/map.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/map_type_handler.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/extension_set.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/reflection_ops.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/wire_format.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o temp/grSim_Commands.pb.o proto/cpp/grSim_Commands.pb.cc
+
+temp/grSim_Packet.pb.o: proto/cpp/grSim_Packet.pb.cc proto/cpp/grSim_Packet.pb.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/port_def.inc \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/port_undef.inc \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/io/coded_stream.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/common.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/macros.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/platform_macros.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/port.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/stringpiece.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/hash.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/logging.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/status.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/strutil.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/port.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arena.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arena_impl.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arenaz_sampler.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arenastring.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/explicitly_constructed.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_message_util.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/once.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/any.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/message_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/metadata_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/has_bits.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/implicit_weak_message.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/repeated_field.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/repeated_ptr_field.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/wire_format_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/casts.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_message_reflection.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/descriptor.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/mutex.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_enum_reflection.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_enum_util.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/unknown_field_set.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/io/zero_copy_stream_impl_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/callback.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/io/zero_copy_stream.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/stl_util.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/parse_context.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/endian.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/inlined_string_field.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/message.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/map.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/map_type_handler.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/extension_set.h \
+		proto/cpp/grSim_Commands.pb.h \
+		proto/cpp/grSim_Replacement.pb.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/reflection_ops.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/wire_format.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o temp/grSim_Packet.pb.o proto/cpp/grSim_Packet.pb.cc
+
+temp/grSim_Replacement.pb.o: proto/cpp/grSim_Replacement.pb.cc proto/cpp/grSim_Replacement.pb.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/port_def.inc \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/port_undef.inc \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/io/coded_stream.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/common.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/macros.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/platform_macros.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/port.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/stringpiece.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/hash.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/logging.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/status.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/strutil.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/port.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arena.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arena_impl.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arenaz_sampler.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arenastring.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/explicitly_constructed.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_message_util.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/once.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/any.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/message_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/metadata_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/has_bits.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/implicit_weak_message.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/repeated_field.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/repeated_ptr_field.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/wire_format_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/casts.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_message_reflection.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/descriptor.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/mutex.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_enum_reflection.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_enum_util.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/unknown_field_set.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/io/zero_copy_stream_impl_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/callback.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/io/zero_copy_stream.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/stl_util.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/parse_context.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/endian.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/inlined_string_field.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/message.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/map.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/map_type_handler.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/extension_set.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/reflection_ops.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/wire_format.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o temp/grSim_Replacement.pb.o proto/cpp/grSim_Replacement.pb.cc
+
+temp/grSim_Robotstatus.pb.o: proto/cpp/grSim_Robotstatus.pb.cc proto/cpp/grSim_Robotstatus.pb.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/port_def.inc \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/port_undef.inc \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/io/coded_stream.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/common.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/macros.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/platform_macros.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/port.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/stringpiece.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/hash.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/logging.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/status.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/strutil.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/port.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arena.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arena_impl.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arenaz_sampler.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arenastring.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/explicitly_constructed.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_message_util.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/once.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/any.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/message_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/metadata_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/has_bits.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/implicit_weak_message.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/repeated_field.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/repeated_ptr_field.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/wire_format_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/casts.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_message_reflection.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/descriptor.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/mutex.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_enum_reflection.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_enum_util.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/unknown_field_set.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/io/zero_copy_stream_impl_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/callback.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/io/zero_copy_stream.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/stl_util.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/parse_context.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/endian.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/inlined_string_field.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/message.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/map.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/map_type_handler.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/extension_set.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/reflection_ops.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/wire_format.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o temp/grSim_Robotstatus.pb.o proto/cpp/grSim_Robotstatus.pb.cc
+
+temp/ssl_gc_common.pb.o: proto/cpp/ssl_gc_common.pb.cc proto/cpp/ssl_gc_common.pb.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/port_def.inc \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/port_undef.inc \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/io/coded_stream.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/common.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/macros.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/platform_macros.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/port.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/stringpiece.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/hash.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/logging.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/status.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/strutil.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/port.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arena.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arena_impl.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arenaz_sampler.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arenastring.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/explicitly_constructed.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_message_util.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/once.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/any.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/message_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/metadata_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/has_bits.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/implicit_weak_message.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/repeated_field.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/repeated_ptr_field.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/wire_format_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/casts.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_message_reflection.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/descriptor.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/mutex.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_enum_reflection.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_enum_util.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/unknown_field_set.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/io/zero_copy_stream_impl_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/callback.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/io/zero_copy_stream.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/stl_util.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/parse_context.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/endian.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/inlined_string_field.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/message.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/map.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/map_type_handler.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/extension_set.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/reflection_ops.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/wire_format.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o temp/ssl_gc_common.pb.o proto/cpp/ssl_gc_common.pb.cc
+
+temp/ssl_gc_geometry.pb.o: proto/cpp/ssl_gc_geometry.pb.cc proto/cpp/ssl_gc_geometry.pb.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/port_def.inc \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/port_undef.inc \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/io/coded_stream.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/common.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/macros.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/platform_macros.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/port.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/stringpiece.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/hash.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/logging.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/status.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/strutil.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/port.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arena.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arena_impl.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arenaz_sampler.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arenastring.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/explicitly_constructed.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_message_util.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/once.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/any.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/message_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/metadata_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/has_bits.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/implicit_weak_message.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/repeated_field.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/repeated_ptr_field.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/wire_format_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/casts.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_message_reflection.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/descriptor.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/mutex.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_enum_reflection.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_enum_util.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/unknown_field_set.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/io/zero_copy_stream_impl_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/callback.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/io/zero_copy_stream.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/stl_util.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/parse_context.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/endian.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/inlined_string_field.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/message.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/map.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/map_type_handler.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/extension_set.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/reflection_ops.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/wire_format.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o temp/ssl_gc_geometry.pb.o proto/cpp/ssl_gc_geometry.pb.cc
+
+temp/ssl_gc_referee_message.pb.o: proto/cpp/ssl_gc_referee_message.pb.cc proto/cpp/ssl_gc_referee_message.pb.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/port_def.inc \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/port_undef.inc \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/io/coded_stream.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/common.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/macros.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/platform_macros.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/port.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/stringpiece.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/hash.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/logging.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/status.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/strutil.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/port.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arena.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arena_impl.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arenaz_sampler.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arenastring.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/explicitly_constructed.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_message_util.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/once.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/any.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/message_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/metadata_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/has_bits.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/implicit_weak_message.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/repeated_field.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/repeated_ptr_field.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/wire_format_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/casts.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_message_reflection.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/descriptor.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/mutex.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_enum_reflection.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_enum_util.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/unknown_field_set.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/io/zero_copy_stream_impl_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/callback.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/io/zero_copy_stream.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/stl_util.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/parse_context.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/endian.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/inlined_string_field.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/message.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/map.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/map_type_handler.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/extension_set.h \
+		proto/cpp/ssl_gc_game_event.pb.h \
+		proto/cpp/ssl_gc_common.pb.h \
+		proto/cpp/ssl_gc_geometry.pb.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/reflection_ops.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/wire_format.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o temp/ssl_gc_referee_message.pb.o proto/cpp/ssl_gc_referee_message.pb.cc
+
+temp/ssl_gc_state.pb.o: proto/cpp/ssl_gc_state.pb.cc proto/cpp/ssl_gc_state.pb.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/port_def.inc \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/port_undef.inc \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/io/coded_stream.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/common.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/macros.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/platform_macros.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/port.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/stringpiece.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/hash.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/logging.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/status.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/strutil.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/port.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arena.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arena_impl.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arenaz_sampler.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arenastring.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/explicitly_constructed.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_message_util.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/once.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/any.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/message_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/metadata_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/has_bits.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/implicit_weak_message.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/repeated_field.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/repeated_ptr_field.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/wire_format_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/casts.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_message_reflection.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/descriptor.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/mutex.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_enum_reflection.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_enum_util.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/unknown_field_set.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/io/zero_copy_stream_impl_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/callback.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/io/zero_copy_stream.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/stl_util.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/parse_context.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/endian.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/inlined_string_field.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/message.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/map.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/map_type_handler.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/extension_set.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/map_entry.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/map_entry_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/reflection_ops.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/map_field_inl.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/map_field.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/map_field_lite.h \
+		proto/cpp/ssl_gc_common.pb.h \
+		proto/cpp/ssl_gc_geometry.pb.h \
+		proto/cpp/ssl_gc_game_event.pb.h \
+		proto/cpp/ssl_gc_referee_message.pb.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/duration.pb.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/timestamp.pb.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/wire_format.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o temp/ssl_gc_state.pb.o proto/cpp/ssl_gc_state.pb.cc
+
+temp/ssl_gc_game_event.pb.o: proto/cpp/ssl_gc_game_event.pb.cc proto/cpp/ssl_gc_game_event.pb.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/port_def.inc \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/port_undef.inc \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/io/coded_stream.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/common.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/macros.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/platform_macros.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/port.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/stringpiece.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/hash.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/logging.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/status.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/strutil.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/port.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arena.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arena_impl.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arenaz_sampler.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arenastring.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/explicitly_constructed.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_message_util.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/once.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/any.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/message_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/metadata_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/has_bits.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/implicit_weak_message.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/repeated_field.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/repeated_ptr_field.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/wire_format_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/casts.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_message_reflection.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/descriptor.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/mutex.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_enum_reflection.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_enum_util.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/unknown_field_set.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/io/zero_copy_stream_impl_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/callback.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/io/zero_copy_stream.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/stl_util.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/parse_context.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/endian.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/inlined_string_field.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/message.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/map.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/map_type_handler.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/extension_set.h \
+		proto/cpp/ssl_gc_common.pb.h \
+		proto/cpp/ssl_gc_geometry.pb.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/reflection_ops.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/wire_format.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o temp/ssl_gc_game_event.pb.o proto/cpp/ssl_gc_game_event.pb.cc
+
 temp/ssl_vision_detection.pb.o: proto/cpp/ssl_vision_detection.pb.cc proto/cpp/ssl_vision_detection.pb.h \
 		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/port_def.inc \
 		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/port_undef.inc \
@@ -1654,6 +2473,113 @@ temp/ssl_vision_wrapper.pb.o: proto/cpp/ssl_vision_wrapper.pb.cc proto/cpp/ssl_v
 		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/reflection_ops.h \
 		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/wire_format.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o temp/ssl_vision_wrapper.pb.o proto/cpp/ssl_vision_wrapper.pb.cc
+
+temp/ssl_vision_wrapper_tracked.pb.o: proto/cpp/ssl_vision_wrapper_tracked.pb.cc proto/cpp/ssl_vision_wrapper_tracked.pb.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/port_def.inc \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/port_undef.inc \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/io/coded_stream.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/common.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/macros.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/platform_macros.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/port.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/stringpiece.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/hash.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/logging.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/status.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/strutil.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/port.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arena.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arena_impl.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arenaz_sampler.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arenastring.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/explicitly_constructed.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_message_util.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/once.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/any.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/message_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/metadata_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/has_bits.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/implicit_weak_message.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/repeated_field.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/repeated_ptr_field.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/wire_format_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/casts.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_message_reflection.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/descriptor.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/mutex.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_enum_reflection.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_enum_util.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/unknown_field_set.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/io/zero_copy_stream_impl_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/callback.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/io/zero_copy_stream.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/stl_util.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/parse_context.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/endian.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/inlined_string_field.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/message.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/map.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/map_type_handler.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/extension_set.h \
+		proto/cpp/ssl_vision_detection_tracked.pb.h \
+		proto/cpp/ssl_gc_common.pb.h \
+		proto/cpp/ssl_gc_geometry.pb.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/reflection_ops.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/wire_format.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o temp/ssl_vision_wrapper_tracked.pb.o proto/cpp/ssl_vision_wrapper_tracked.pb.cc
+
+temp/ssl_vision_detection_tracked.pb.o: proto/cpp/ssl_vision_detection_tracked.pb.cc proto/cpp/ssl_vision_detection_tracked.pb.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/port_def.inc \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/port_undef.inc \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/io/coded_stream.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/common.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/macros.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/platform_macros.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/port.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/stringpiece.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/hash.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/logging.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/status.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/strutil.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/port.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arena.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arena_impl.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arenaz_sampler.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arenastring.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/explicitly_constructed.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_message_util.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/once.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/any.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/message_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/metadata_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/has_bits.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/implicit_weak_message.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/repeated_field.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/repeated_ptr_field.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/wire_format_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/casts.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_message_reflection.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/descriptor.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/mutex.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_enum_reflection.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_enum_util.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/unknown_field_set.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/io/zero_copy_stream_impl_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/callback.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/io/zero_copy_stream.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/stl_util.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/parse_context.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/endian.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/inlined_string_field.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/message.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/map.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/map_type_handler.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/extension_set.h \
+		proto/cpp/ssl_gc_common.pb.h \
+		proto/cpp/ssl_gc_geometry.pb.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/reflection_ops.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/wire_format.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o temp/ssl_vision_detection_tracked.pb.o proto/cpp/ssl_vision_detection_tracked.pb.cc
 
 temp/moc_field.o: temp/moc_field.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o temp/moc_field.o temp/moc_field.cpp

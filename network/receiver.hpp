@@ -5,6 +5,8 @@
 #include <unistd.h>
 #include <string.h>
 #include "ssl_vision_wrapper.pb.h"
+#include "ssl_vision_detection.pb.h"
+// #include ""
 
 #ifndef RECEIVER_H
 #define RECEIVER_H
@@ -12,6 +14,7 @@
 class Receiver
 {
 public:
+    Receiver();
     void recv();
 
 private:
@@ -20,6 +23,7 @@ private:
     struct ip_mreq mreq;
 
     SSL_WrapperPacket info;
+    SSL_DetectionBall ball;
 };
 
 #endif
