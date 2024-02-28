@@ -1,6 +1,6 @@
 #include "receiver.hpp"
 
-Receiver::Receiver()
+Receiver::Receiver() : Field()
 {
     sockfd = socket(AF_INET, SOCK_DGRAM, 0);
     if (sockfd < 0) {
@@ -16,13 +16,14 @@ Receiver::Receiver()
     mreq.imr_interface.s_addr = htonl(INADDR_ANY);
     if (setsockopt(sockfd, IPPROTO_IP, IP_ADD_MEMBERSHIP, &mreq, sizeof(mreq)) < 0) {
         std::cerr << "setsockopt IP_ADD_MEMBERSHIP failed" << std::endl;
-        close(sockfd);
+        // close(sockfd);
     }
 
     if (bind(sockfd, (struct sockaddr*)&servaddr, sizeof(servaddr)) < 0) {
         std::cerr << "Bind failed" << std::endl;
-        close(sockfd);
+        // close(sockfd);
     }
+    Field::show();
 }
 
 void Receiver::recv()
@@ -31,14 +32,14 @@ void Receiver::recv()
     socklen_t len = sizeof(servaddr);
 
     int n = recvfrom(sockfd, buffer, 1024, 0, (struct sockaddr*)&servaddr, &len);
-    
     if(n > 0)
     {
         if (info.ParseFromArray(buffer, n)) {
             for (int i = 0; i < info.detection().balls().size(); i++)
             {
-                ball = info.detection().balls()[i];
-                std::cout << ball.x() << std::endl;
+                ball.x = info.detection().balls()[i].x();
+                ball.y = info.detection().balls()[i].y();
+                Field::paint(ball);
             }
         }
     }

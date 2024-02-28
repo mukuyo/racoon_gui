@@ -1,12 +1,10 @@
 #include "field.hpp"
-#include <QPainter>
-#include <QApplication>
-#include <iostream>
+
 Field::Field(QWidget *parent) : QWidget(parent)
 {
     screen = QGuiApplication::primaryScreen();
-    slide_width = 40;
-    slide_height = 40;
+    slide_width = 25;
+    slide_height = 25;
     
     screen_size = screen->size();
     screen_height = screen_size.height() - 55;
@@ -15,10 +13,10 @@ Field::Field(QWidget *parent) : QWidget(parent)
     setFixedSize(screen_width, screen_height);
 
     field_width = screen_width*0.7 - slide_width*2;
-    field_height = field_width*2/3;
+    field_height = field_width*3/4;
     field_center = QPoint(slide_width + field_width/2, slide_height + field_height/2);
 
-    ratio = float(field_width) / 12000.0;
+    ratio = float(field_width) / float(12000.0);
 }
 
 void Field::paintEvent(QPaintEvent *event)
@@ -53,11 +51,17 @@ void Field::paintEvent(QPaintEvent *event)
     //ball
     painter.setBrush(QColor(255, 165, 0));
     painter.setPen(QColor(255, 165, 0));
-    painter.drawEllipse(200, 200, 2, 2);
+    painter.drawEllipse(field_center.x() + ball_info.x*ratio, field_center.y() - ball_info.y*ratio, 2, 2);
 
     //robot
     // painter.drawChord(
         // 100, 100,180*ratio,180*ratio,
         // int(degrees(MU.radian_normalize(robot.theta - radians(45))) * 16),
         // int(MU.radian_normalize(0 - 45*M_PI/180.0)*180.0/M_PI)*16,275 * 16);
+}
+
+void Field::paint(BallInfo ball)
+{
+    ball_info = ball;
+    Field::update();
 }

@@ -6,12 +6,12 @@
 int main(int argc, char *argv[]) 
 {
     QApplication app(argc, argv);
-    Field field;
     Receiver receiver;
     while(true)
     {
         receiver.recv();
+        app.processEvents();
     }
-    field.show();
-    return app.exec();
+    // field.show();
+    // return app.exec();
 }

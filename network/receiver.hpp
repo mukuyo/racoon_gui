@@ -1,3 +1,6 @@
+#ifndef RECEIVER_H
+#define RECEIVER_H
+
 #include <iostream>
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -6,16 +9,14 @@
 #include <string.h>
 #include "ssl_vision_wrapper.pb.h"
 #include "ssl_vision_detection.pb.h"
-// #include ""
+#include "../src/field.hpp"
 
-#ifndef RECEIVER_H
-#define RECEIVER_H
-
-class Receiver
+class Receiver : public Field
 {
 public:
     Receiver();
     void recv();
+    BallInfo ball;
 
 private:
     int sockfd;
@@ -23,7 +24,7 @@ private:
     struct ip_mreq mreq;
 
     SSL_WrapperPacket info;
-    SSL_DetectionBall ball;
+    
 };
 
 #endif
