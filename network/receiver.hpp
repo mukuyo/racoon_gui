@@ -17,6 +17,8 @@ public:
     Receiver();
     void recv();
     BallInfo ball;
+    RobotInfo blue_robots[11];
+    RobotInfo yellow_robots[11];
 
 private:
     int sockfd;

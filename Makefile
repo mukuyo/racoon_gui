@@ -17,7 +17,7 @@ CXX           = /Library/Developer/CommandLineTools/usr/bin/clang++
 DEFINES       = -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_QUICK_LIB -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_QMLMODELS_LIB -DQT_QML_LIB -DQT_QMLINTEGRATION_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -O2 $(EXPORT_ARCH_ARGS) -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -mmacosx-version-min=14.0 -Wall -Wextra -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -stdlib=libc++ -O2 -std=gnu++1z $(EXPORT_ARCH_ARGS) -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -mmacosx-version-min=14.0 -Wall -Wextra -fPIC $(DEFINES)
-INCPATH       = -I. -Isrc -Iproto/cpp -I/usr/local/Cellar/protobuf@21/21.12/include -I/usr/local/Cellar/zlib/include -I/usr/local/Cellar/Eigen -I/usr/local/lib/QtWidgets.framework/Headers -I/usr/local/lib/QtQuick.framework/Headers -I/usr/local/lib/QtOpenGL.framework/Headers -I/usr/local/lib/QtGui.framework/Headers -I/usr/local/lib/QtQmlModels.framework/Headers -I/usr/local/lib/QtQml.framework/Headers -I/usr/local/include -I/usr/local/include/QtQmlIntegration -I/usr/local/lib/QtNetwork.framework/Headers -I/usr/local/lib/QtCore.framework/Headers -Itemp -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/AGL.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/AGL.framework/Headers -I/usr/local/share/qt/mkspecs/macx-clang -F/usr/local/lib
+INCPATH       = -I. -Isrc -Iproto/cpp -Icommon -I/usr/local/Cellar/protobuf@21/21.12/include -I/usr/local/Cellar/zlib/include -I/usr/local/Cellar/Eigen -I/usr/local/lib/QtWidgets.framework/Headers -I/usr/local/lib/QtQuick.framework/Headers -I/usr/local/lib/QtOpenGL.framework/Headers -I/usr/local/lib/QtGui.framework/Headers -I/usr/local/lib/QtQmlModels.framework/Headers -I/usr/local/lib/QtQml.framework/Headers -I/usr/local/include -I/usr/local/include/QtQmlIntegration -I/usr/local/lib/QtNetwork.framework/Headers -I/usr/local/lib/QtCore.framework/Headers -Itemp -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/AGL.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/AGL.framework/Headers -I/usr/local/share/qt/mkspecs/macx-clang -F/usr/local/lib
 QMAKE         = /usr/local/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -401,6 +401,7 @@ DIST          = /usr/local/share/qt/mkspecs/features/spec_pre.prf \
 		/usr/local/share/qt/mkspecs/features/lex.prf \
 		racoon_gui.pro src/field.hpp \
 		network/receiver.hpp \
+		common/math_utils.hpp \
 		proto/cpp/grSim_Commands.pb.h \
 		proto/cpp/grSim_Packet.pb.h \
 		proto/cpp/grSim_Replacement.pb.h \
@@ -1123,7 +1124,7 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/local/share/qt/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents src/field.hpp network/receiver.hpp proto/cpp/grSim_Commands.pb.h proto/cpp/grSim_Packet.pb.h proto/cpp/grSim_Replacement.pb.h proto/cpp/grSim_Robotstatus.pb.h proto/cpp/ssl_gc_common.pb.h proto/cpp/ssl_gc_geometry.pb.h proto/cpp/ssl_gc_referee_message.pb.h proto/cpp/ssl_gc_state.pb.h proto/cpp/ssl_gc_game_event.pb.h proto/cpp/ssl_vision_detection.pb.h proto/cpp/ssl_vision_geometry.pb.h proto/cpp/ssl_vision_wrapper.pb.h proto/cpp/ssl_vision_wrapper_tracked.pb.h proto/cpp/ssl_vision_detection_tracked.pb.h $(DISTDIR)/
+	$(COPY_FILE) --parents src/field.hpp network/receiver.hpp common/math_utils.hpp proto/cpp/grSim_Commands.pb.h proto/cpp/grSim_Packet.pb.h proto/cpp/grSim_Replacement.pb.h proto/cpp/grSim_Robotstatus.pb.h proto/cpp/ssl_gc_common.pb.h proto/cpp/ssl_gc_geometry.pb.h proto/cpp/ssl_gc_referee_message.pb.h proto/cpp/ssl_gc_state.pb.h proto/cpp/ssl_gc_game_event.pb.h proto/cpp/ssl_vision_detection.pb.h proto/cpp/ssl_vision_geometry.pb.h proto/cpp/ssl_vision_wrapper.pb.h proto/cpp/ssl_vision_wrapper_tracked.pb.h proto/cpp/ssl_vision_detection_tracked.pb.h $(DISTDIR)/
 	$(COPY_FILE) --parents racoon_gui.cpp src/field.cpp network/receiver.cpp proto/cpp/grSim_Commands.pb.cc proto/cpp/grSim_Packet.pb.cc proto/cpp/grSim_Replacement.pb.cc proto/cpp/grSim_Robotstatus.pb.cc proto/cpp/ssl_gc_common.pb.cc proto/cpp/ssl_gc_geometry.pb.cc proto/cpp/ssl_gc_referee_message.pb.cc proto/cpp/ssl_gc_state.pb.cc proto/cpp/ssl_gc_game_event.pb.cc proto/cpp/ssl_vision_detection.pb.cc proto/cpp/ssl_vision_geometry.pb.cc proto/cpp/ssl_vision_wrapper.pb.cc proto/cpp/ssl_vision_wrapper_tracked.pb.cc proto/cpp/ssl_vision_detection_tracked.pb.cc $(DISTDIR)/
 
 
@@ -1163,9 +1164,8 @@ compiler_moc_header_make_all: temp/moc_field.cpp
 compiler_moc_header_clean:
 	-$(DEL_FILE) temp/moc_field.cpp
 temp/moc_field.cpp: src/field.hpp \
-		/usr/local/include/QtWidgets/QWidget \
-		/usr/local/include/QtWidgets/qwidget.h \
-		/usr/local/include/QtWidgets/qtwidgetsglobal.h \
+		/usr/local/lib/QtGui.framework/Headers/QPainter \
+		/usr/local/lib/QtGui.framework/Headers/qpainter.h \
 		/usr/local/include/QtGui/qtguiglobal.h \
 		/usr/local/include/QtCore/qglobal.h \
 		/usr/local/include/QtCore/qtversionchecks.h \
@@ -1212,15 +1212,10 @@ temp/moc_field.cpp: src/field.hpp \
 		/usr/local/include/QtCore/qversiontagging.h \
 		/usr/local/include/QtGui/qtgui-config.h \
 		/usr/local/include/QtGui/qtguiexports.h \
-		/usr/local/include/QtWidgets/qtwidgets-config.h \
-		/usr/local/include/QtWidgets/qtwidgetsexports.h \
-		/usr/local/include/QtGui/qwindowdefs.h \
-		/usr/local/include/QtCore/qobjectdefs.h \
 		/usr/local/include/QtCore/qnamespace.h \
 		/usr/local/include/QtCore/qtmetamacros.h \
-		/usr/local/include/QtCore/qobjectdefs_impl.h \
-		/usr/local/include/QtCore/qfunctionaltools_impl.h \
-		/usr/local/include/QtCore/qobject.h \
+		/usr/local/include/QtCore/qrect.h \
+		/usr/local/include/QtCore/qhashfunctions.h \
 		/usr/local/include/QtCore/qstring.h \
 		/usr/local/include/QtCore/qchar.h \
 		/usr/local/include/QtCore/qstringview.h \
@@ -1245,40 +1240,25 @@ temp/moc_field.cpp: src/field.hpp \
 		/usr/local/include/QtCore/qutf8stringview.h \
 		/usr/local/include/QtCore/qstringtokenizer.h \
 		/usr/local/include/QtCore/qstringbuilder.h \
-		/usr/local/include/QtCore/qlist.h \
-		/usr/local/include/QtCore/qhashfunctions.h \
-		/usr/local/include/QtCore/qiterator.h \
-		/usr/local/include/QtCore/qbytearraylist.h \
-		/usr/local/include/QtCore/qstringlist.h \
-		/usr/local/include/QtCore/qalgorithms.h \
-		/usr/local/include/QtCore/qstringmatcher.h \
-		/usr/local/include/QtCore/qcoreevent.h \
-		/usr/local/include/QtCore/qscopedpointer.h \
-		/usr/local/include/QtCore/qmetatype.h \
-		/usr/local/include/QtCore/qcompare.h \
-		/usr/local/include/QtCore/qdatastream.h \
-		/usr/local/include/QtCore/qiodevicebase.h \
-		/usr/local/include/QtCore/qfloat16.h \
-		/usr/local/include/QtCore/qmath.h \
-		/usr/local/include/QtCore/qiterable.h \
-		/usr/local/include/QtCore/qmetacontainer.h \
-		/usr/local/include/QtCore/qcontainerinfo.h \
-		/usr/local/include/QtCore/qtaggedpointer.h \
-		/usr/local/include/QtCore/qscopeguard.h \
-		/usr/local/include/QtCore/qobject_impl.h \
-		/usr/local/include/QtCore/qbindingstorage.h \
 		/usr/local/include/QtCore/qmargins.h \
 		/usr/local/include/QtCore/q23utility.h \
-		/usr/local/include/QtGui/qaction.h \
-		/usr/local/include/QtGui/qkeysequence.h \
-		/usr/local/include/QtGui/qicon.h \
 		/usr/local/include/QtCore/qsize.h \
+		/usr/local/include/QtCore/qpoint.h \
+		/usr/local/include/QtCore/qscopedpointer.h \
 		/usr/local/include/QtGui/qpixmap.h \
 		/usr/local/include/QtGui/qpaintdevice.h \
-		/usr/local/include/QtCore/qrect.h \
-		/usr/local/include/QtCore/qpoint.h \
+		/usr/local/include/QtGui/qwindowdefs.h \
+		/usr/local/include/QtCore/qobjectdefs.h \
+		/usr/local/include/QtCore/qobjectdefs_impl.h \
+		/usr/local/include/QtCore/qfunctionaltools_impl.h \
 		/usr/local/include/QtGui/qcolor.h \
 		/usr/local/include/QtGui/qrgb.h \
+		/usr/local/include/QtCore/qstringlist.h \
+		/usr/local/include/QtCore/qlist.h \
+		/usr/local/include/QtCore/qiterator.h \
+		/usr/local/include/QtCore/qbytearraylist.h \
+		/usr/local/include/QtCore/qalgorithms.h \
+		/usr/local/include/QtCore/qstringmatcher.h \
 		/usr/local/include/QtGui/qrgba64.h \
 		/usr/local/include/QtCore/qshareddata.h \
 		/usr/local/include/QtGui/qimage.h \
@@ -1286,8 +1266,36 @@ temp/moc_field.cpp: src/field.hpp \
 		/usr/local/include/QtGui/qtransform.h \
 		/usr/local/include/QtGui/qpolygon.h \
 		/usr/local/include/QtGui/qregion.h \
+		/usr/local/include/QtCore/qdatastream.h \
+		/usr/local/include/QtCore/qiodevicebase.h \
 		/usr/local/include/QtCore/qline.h \
-		/usr/local/include/QtCore/qvariant.h \
+		/usr/local/include/QtGui/qtextoption.h \
+		/usr/local/include/QtCore/qmetatype.h \
+		/usr/local/include/QtCore/qcompare.h \
+		/usr/local/include/QtCore/qfloat16.h \
+		/usr/local/include/QtCore/qmath.h \
+		/usr/local/include/QtCore/qiterable.h \
+		/usr/local/include/QtCore/qmetacontainer.h \
+		/usr/local/include/QtCore/qcontainerinfo.h \
+		/usr/local/include/QtCore/qtaggedpointer.h \
+		/usr/local/include/QtCore/qscopeguard.h \
+		/usr/local/include/QtGui/qpen.h \
+		/usr/local/include/QtGui/qbrush.h \
+		/usr/local/include/QtGui/qfontinfo.h \
+		/usr/local/include/QtGui/qfont.h \
+		/usr/local/include/QtGui/qfontmetrics.h \
+		/usr/local/lib/QtWidgets.framework/Headers/QApplication \
+		/usr/local/lib/QtWidgets.framework/Headers/qapplication.h \
+		/usr/local/include/QtWidgets/qtwidgetsglobal.h \
+		/usr/local/include/QtWidgets/qtwidgets-config.h \
+		/usr/local/include/QtWidgets/qtwidgetsexports.h \
+		/usr/local/include/QtCore/qcoreapplication.h \
+		/usr/local/include/QtCore/qcoreevent.h \
+		/usr/local/include/QtCore/qeventloop.h \
+		/usr/local/include/QtCore/qobject.h \
+		/usr/local/include/QtCore/qobject_impl.h \
+		/usr/local/include/QtCore/qbindingstorage.h \
+		/usr/local/include/QtCore/qnativeinterface.h \
 		/usr/local/include/QtCore/qdebug.h \
 		/usr/local/include/QtCore/qtextstream.h \
 		/usr/local/include/QtCore/qstringconverter_base.h \
@@ -1299,17 +1307,37 @@ temp/moc_field.cpp: src/field.hpp \
 		/usr/local/include/QtCore/qset.h \
 		/usr/local/include/QtCore/qhash.h \
 		/usr/local/include/QtCore/qvarlengtharray.h \
-		/usr/local/include/QtGui/qpalette.h \
-		/usr/local/include/QtGui/qbrush.h \
-		/usr/local/include/QtGui/qfont.h \
-		/usr/local/include/QtGui/qfontmetrics.h \
-		/usr/local/include/QtGui/qfontinfo.h \
-		/usr/local/include/QtWidgets/qsizepolicy.h \
+		/usr/local/include/QtCore/qcoreapplication_platform.h \
+		/usr/local/include/QtCore/qfuture.h \
+		/usr/local/include/QtCore/qfutureinterface.h \
+		/usr/local/include/QtCore/qmutex.h \
+		/usr/local/include/QtCore/qdeadlinetimer.h \
+		/usr/local/include/QtCore/qelapsedtimer.h \
+		/usr/local/include/QtCore/qtsan_impl.h \
+		/usr/local/include/QtCore/qresultstore.h \
+		/usr/local/include/QtCore/qfuture_impl.h \
+		/usr/local/include/QtCore/qthreadpool.h \
+		/usr/local/include/QtCore/qthread.h \
+		/usr/local/include/QtCore/qrunnable.h \
+		/usr/local/include/QtCore/qexception.h \
+		/usr/local/include/QtCore/qpointer.h \
+		/usr/local/include/QtCore/qpromise.h \
+		/usr/local/include/QtCore/qvariant.h \
 		/usr/local/include/QtGui/qcursor.h \
 		/usr/local/include/QtGui/qbitmap.h \
+		/usr/local/include/QtGui/qguiapplication.h \
+		/usr/local/include/QtGui/qinputmethod.h \
+		/usr/local/include/QtCore/qlocale.h \
+		/usr/local/include/QtGui/qguiapplication_platform.h \
+		/usr/local/include/QtWidgets/QWidget \
+		/usr/local/include/QtWidgets/qwidget.h \
+		/usr/local/include/QtGui/qaction.h \
+		/usr/local/include/QtGui/qkeysequence.h \
+		/usr/local/include/QtGui/qicon.h \
+		/usr/local/include/QtGui/qpalette.h \
+		/usr/local/include/QtWidgets/qsizepolicy.h \
 		/usr/local/include/QtGui/qevent.h \
 		/usr/local/include/QtCore/qiodevice.h \
-		/usr/local/include/QtCore/qpointer.h \
 		/usr/local/include/QtCore/qurl.h \
 		/usr/local/include/QtGui/qeventpoint.h \
 		/usr/local/include/QtGui/qvector2d.h \
@@ -1323,14 +1351,14 @@ temp/moc_field.cpp: src/field.hpp \
 		/usr/local/include/QtCore/QSize \
 		/usr/local/include/QtCore/QSizeF \
 		/usr/local/include/QtGui/QTransform \
-		/usr/local/include/QtCore/qnativeinterface.h \
 		/usr/local/lib/QtGui.framework/Headers/QScreen \
 		/usr/local/lib/QtGui.framework/Headers/qscreen.h \
 		/usr/local/lib/QtCore.framework/Headers/QSize \
 		/usr/local/lib/QtCore.framework/Headers/qsize.h \
+		common/math_utils.hpp \
 		temp/moc_predefs.h \
 		/usr/local/share/qt/libexec/moc
-	/usr/local/share/qt/libexec/moc $(DEFINES) --include /Users/mukuyo/ws/ssl_ws/racoon_gui/temp/moc_predefs.h -I/usr/local/share/qt/mkspecs/macx-clang -I/Users/mukuyo/ws/ssl_ws/racoon_gui -I/Users/mukuyo/ws/ssl_ws/racoon_gui/src -I/Users/mukuyo/ws/ssl_ws/racoon_gui/proto/cpp -I/usr/local/Cellar/protobuf@21/21.12/include -I/usr/local/Cellar/zlib/include -I/usr/local/Cellar/Eigen -I/usr/local/lib/QtWidgets.framework/Headers -I/usr/local/lib/QtQuick.framework/Headers -I/usr/local/lib/QtOpenGL.framework/Headers -I/usr/local/lib/QtGui.framework/Headers -I/usr/local/lib/QtQmlModels.framework/Headers -I/usr/local/lib/QtQml.framework/Headers -I/usr/local/include -I/usr/local/include/QtQmlIntegration -I/usr/local/lib/QtNetwork.framework/Headers -I/usr/local/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -I/Library/Developer/CommandLineTools/usr/include -F/usr/local/lib src/field.hpp -o temp/moc_field.cpp
+	/usr/local/share/qt/libexec/moc $(DEFINES) --include /Users/mukuyo/ws/ssl_ws/racoon_gui/temp/moc_predefs.h -I/usr/local/share/qt/mkspecs/macx-clang -I/Users/mukuyo/ws/ssl_ws/racoon_gui -I/Users/mukuyo/ws/ssl_ws/racoon_gui/src -I/Users/mukuyo/ws/ssl_ws/racoon_gui/proto/cpp -I/Users/mukuyo/ws/ssl_ws/racoon_gui/common -I/usr/local/Cellar/protobuf@21/21.12/include -I/usr/local/Cellar/zlib/include -I/usr/local/Cellar/Eigen -I/usr/local/lib/QtWidgets.framework/Headers -I/usr/local/lib/QtQuick.framework/Headers -I/usr/local/lib/QtOpenGL.framework/Headers -I/usr/local/lib/QtGui.framework/Headers -I/usr/local/lib/QtQmlModels.framework/Headers -I/usr/local/lib/QtQml.framework/Headers -I/usr/local/include -I/usr/local/include/QtQmlIntegration -I/usr/local/lib/QtNetwork.framework/Headers -I/usr/local/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -I/Library/Developer/CommandLineTools/usr/include -F/usr/local/lib src/field.hpp -o temp/moc_field.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -1538,11 +1566,18 @@ temp/racoon_gui.o: racoon_gui.cpp /usr/local/include/QtWidgets/QApplication \
 		/usr/local/include/QtGui/qpicture.h \
 		/usr/local/include/QtGui/qtextdocument.h \
 		src/field.hpp \
+		/usr/local/lib/QtGui.framework/Headers/QPainter \
+		/usr/local/lib/QtGui.framework/Headers/qpainter.h \
+		/usr/local/include/QtGui/qtextoption.h \
+		/usr/local/include/QtGui/qpen.h \
+		/usr/local/lib/QtWidgets.framework/Headers/QApplication \
+		/usr/local/lib/QtWidgets.framework/Headers/qapplication.h \
 		/usr/local/include/QtWidgets/QWidget \
 		/usr/local/lib/QtGui.framework/Headers/QScreen \
 		/usr/local/lib/QtGui.framework/Headers/qscreen.h \
 		/usr/local/lib/QtCore.framework/Headers/QSize \
 		/usr/local/lib/QtCore.framework/Headers/qsize.h \
+		common/math_utils.hpp \
 		network/receiver.hpp \
 		proto/cpp/ssl_vision_wrapper.pb.h \
 		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/port_def.inc \
@@ -1596,9 +1631,8 @@ temp/racoon_gui.o: racoon_gui.cpp /usr/local/include/QtWidgets/QApplication \
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o temp/racoon_gui.o racoon_gui.cpp
 
 temp/field.o: src/field.cpp src/field.hpp \
-		/usr/local/include/QtWidgets/QWidget \
-		/usr/local/include/QtWidgets/qwidget.h \
-		/usr/local/include/QtWidgets/qtwidgetsglobal.h \
+		/usr/local/lib/QtGui.framework/Headers/QPainter \
+		/usr/local/lib/QtGui.framework/Headers/qpainter.h \
 		/usr/local/include/QtGui/qtguiglobal.h \
 		/usr/local/include/QtCore/qglobal.h \
 		/usr/local/include/QtCore/qtversionchecks.h \
@@ -1645,15 +1679,10 @@ temp/field.o: src/field.cpp src/field.hpp \
 		/usr/local/include/QtCore/qversiontagging.h \
 		/usr/local/include/QtGui/qtgui-config.h \
 		/usr/local/include/QtGui/qtguiexports.h \
-		/usr/local/include/QtWidgets/qtwidgets-config.h \
-		/usr/local/include/QtWidgets/qtwidgetsexports.h \
-		/usr/local/include/QtGui/qwindowdefs.h \
-		/usr/local/include/QtCore/qobjectdefs.h \
 		/usr/local/include/QtCore/qnamespace.h \
 		/usr/local/include/QtCore/qtmetamacros.h \
-		/usr/local/include/QtCore/qobjectdefs_impl.h \
-		/usr/local/include/QtCore/qfunctionaltools_impl.h \
-		/usr/local/include/QtCore/qobject.h \
+		/usr/local/include/QtCore/qrect.h \
+		/usr/local/include/QtCore/qhashfunctions.h \
 		/usr/local/include/QtCore/qstring.h \
 		/usr/local/include/QtCore/qchar.h \
 		/usr/local/include/QtCore/qstringview.h \
@@ -1678,40 +1707,25 @@ temp/field.o: src/field.cpp src/field.hpp \
 		/usr/local/include/QtCore/qutf8stringview.h \
 		/usr/local/include/QtCore/qstringtokenizer.h \
 		/usr/local/include/QtCore/qstringbuilder.h \
-		/usr/local/include/QtCore/qlist.h \
-		/usr/local/include/QtCore/qhashfunctions.h \
-		/usr/local/include/QtCore/qiterator.h \
-		/usr/local/include/QtCore/qbytearraylist.h \
-		/usr/local/include/QtCore/qstringlist.h \
-		/usr/local/include/QtCore/qalgorithms.h \
-		/usr/local/include/QtCore/qstringmatcher.h \
-		/usr/local/include/QtCore/qcoreevent.h \
-		/usr/local/include/QtCore/qscopedpointer.h \
-		/usr/local/include/QtCore/qmetatype.h \
-		/usr/local/include/QtCore/qcompare.h \
-		/usr/local/include/QtCore/qdatastream.h \
-		/usr/local/include/QtCore/qiodevicebase.h \
-		/usr/local/include/QtCore/qfloat16.h \
-		/usr/local/include/QtCore/qmath.h \
-		/usr/local/include/QtCore/qiterable.h \
-		/usr/local/include/QtCore/qmetacontainer.h \
-		/usr/local/include/QtCore/qcontainerinfo.h \
-		/usr/local/include/QtCore/qtaggedpointer.h \
-		/usr/local/include/QtCore/qscopeguard.h \
-		/usr/local/include/QtCore/qobject_impl.h \
-		/usr/local/include/QtCore/qbindingstorage.h \
 		/usr/local/include/QtCore/qmargins.h \
 		/usr/local/include/QtCore/q23utility.h \
-		/usr/local/include/QtGui/qaction.h \
-		/usr/local/include/QtGui/qkeysequence.h \
-		/usr/local/include/QtGui/qicon.h \
 		/usr/local/include/QtCore/qsize.h \
+		/usr/local/include/QtCore/qpoint.h \
+		/usr/local/include/QtCore/qscopedpointer.h \
 		/usr/local/include/QtGui/qpixmap.h \
 		/usr/local/include/QtGui/qpaintdevice.h \
-		/usr/local/include/QtCore/qrect.h \
-		/usr/local/include/QtCore/qpoint.h \
+		/usr/local/include/QtGui/qwindowdefs.h \
+		/usr/local/include/QtCore/qobjectdefs.h \
+		/usr/local/include/QtCore/qobjectdefs_impl.h \
+		/usr/local/include/QtCore/qfunctionaltools_impl.h \
 		/usr/local/include/QtGui/qcolor.h \
 		/usr/local/include/QtGui/qrgb.h \
+		/usr/local/include/QtCore/qstringlist.h \
+		/usr/local/include/QtCore/qlist.h \
+		/usr/local/include/QtCore/qiterator.h \
+		/usr/local/include/QtCore/qbytearraylist.h \
+		/usr/local/include/QtCore/qalgorithms.h \
+		/usr/local/include/QtCore/qstringmatcher.h \
 		/usr/local/include/QtGui/qrgba64.h \
 		/usr/local/include/QtCore/qshareddata.h \
 		/usr/local/include/QtGui/qimage.h \
@@ -1719,8 +1733,36 @@ temp/field.o: src/field.cpp src/field.hpp \
 		/usr/local/include/QtGui/qtransform.h \
 		/usr/local/include/QtGui/qpolygon.h \
 		/usr/local/include/QtGui/qregion.h \
+		/usr/local/include/QtCore/qdatastream.h \
+		/usr/local/include/QtCore/qiodevicebase.h \
 		/usr/local/include/QtCore/qline.h \
-		/usr/local/include/QtCore/qvariant.h \
+		/usr/local/include/QtGui/qtextoption.h \
+		/usr/local/include/QtCore/qmetatype.h \
+		/usr/local/include/QtCore/qcompare.h \
+		/usr/local/include/QtCore/qfloat16.h \
+		/usr/local/include/QtCore/qmath.h \
+		/usr/local/include/QtCore/qiterable.h \
+		/usr/local/include/QtCore/qmetacontainer.h \
+		/usr/local/include/QtCore/qcontainerinfo.h \
+		/usr/local/include/QtCore/qtaggedpointer.h \
+		/usr/local/include/QtCore/qscopeguard.h \
+		/usr/local/include/QtGui/qpen.h \
+		/usr/local/include/QtGui/qbrush.h \
+		/usr/local/include/QtGui/qfontinfo.h \
+		/usr/local/include/QtGui/qfont.h \
+		/usr/local/include/QtGui/qfontmetrics.h \
+		/usr/local/lib/QtWidgets.framework/Headers/QApplication \
+		/usr/local/lib/QtWidgets.framework/Headers/qapplication.h \
+		/usr/local/include/QtWidgets/qtwidgetsglobal.h \
+		/usr/local/include/QtWidgets/qtwidgets-config.h \
+		/usr/local/include/QtWidgets/qtwidgetsexports.h \
+		/usr/local/include/QtCore/qcoreapplication.h \
+		/usr/local/include/QtCore/qcoreevent.h \
+		/usr/local/include/QtCore/qeventloop.h \
+		/usr/local/include/QtCore/qobject.h \
+		/usr/local/include/QtCore/qobject_impl.h \
+		/usr/local/include/QtCore/qbindingstorage.h \
+		/usr/local/include/QtCore/qnativeinterface.h \
 		/usr/local/include/QtCore/qdebug.h \
 		/usr/local/include/QtCore/qtextstream.h \
 		/usr/local/include/QtCore/qstringconverter_base.h \
@@ -1732,43 +1774,6 @@ temp/field.o: src/field.cpp src/field.hpp \
 		/usr/local/include/QtCore/qset.h \
 		/usr/local/include/QtCore/qhash.h \
 		/usr/local/include/QtCore/qvarlengtharray.h \
-		/usr/local/include/QtGui/qpalette.h \
-		/usr/local/include/QtGui/qbrush.h \
-		/usr/local/include/QtGui/qfont.h \
-		/usr/local/include/QtGui/qfontmetrics.h \
-		/usr/local/include/QtGui/qfontinfo.h \
-		/usr/local/include/QtWidgets/qsizepolicy.h \
-		/usr/local/include/QtGui/qcursor.h \
-		/usr/local/include/QtGui/qbitmap.h \
-		/usr/local/include/QtGui/qevent.h \
-		/usr/local/include/QtCore/qiodevice.h \
-		/usr/local/include/QtCore/qpointer.h \
-		/usr/local/include/QtCore/qurl.h \
-		/usr/local/include/QtGui/qeventpoint.h \
-		/usr/local/include/QtGui/qvector2d.h \
-		/usr/local/include/QtGui/qvectornd.h \
-		/usr/local/include/QtGui/qpointingdevice.h \
-		/usr/local/include/QtGui/qinputdevice.h \
-		/usr/local/include/QtGui/qscreen.h \
-		/usr/local/include/QtCore/QList \
-		/usr/local/include/QtCore/QObject \
-		/usr/local/include/QtCore/QRect \
-		/usr/local/include/QtCore/QSize \
-		/usr/local/include/QtCore/QSizeF \
-		/usr/local/include/QtGui/QTransform \
-		/usr/local/include/QtCore/qnativeinterface.h \
-		/usr/local/lib/QtGui.framework/Headers/QScreen \
-		/usr/local/lib/QtGui.framework/Headers/qscreen.h \
-		/usr/local/lib/QtCore.framework/Headers/QSize \
-		/usr/local/lib/QtCore.framework/Headers/qsize.h \
-		/usr/local/lib/QtGui.framework/Headers/QPainter \
-		/usr/local/lib/QtGui.framework/Headers/qpainter.h \
-		/usr/local/include/QtGui/qtextoption.h \
-		/usr/local/include/QtGui/qpen.h \
-		/usr/local/lib/QtWidgets.framework/Headers/QApplication \
-		/usr/local/lib/QtWidgets.framework/Headers/qapplication.h \
-		/usr/local/include/QtCore/qcoreapplication.h \
-		/usr/local/include/QtCore/qeventloop.h \
 		/usr/local/include/QtCore/qcoreapplication_platform.h \
 		/usr/local/include/QtCore/qfuture.h \
 		/usr/local/include/QtCore/qfutureinterface.h \
@@ -1782,11 +1787,42 @@ temp/field.o: src/field.cpp src/field.hpp \
 		/usr/local/include/QtCore/qthread.h \
 		/usr/local/include/QtCore/qrunnable.h \
 		/usr/local/include/QtCore/qexception.h \
+		/usr/local/include/QtCore/qpointer.h \
 		/usr/local/include/QtCore/qpromise.h \
+		/usr/local/include/QtCore/qvariant.h \
+		/usr/local/include/QtGui/qcursor.h \
+		/usr/local/include/QtGui/qbitmap.h \
 		/usr/local/include/QtGui/qguiapplication.h \
 		/usr/local/include/QtGui/qinputmethod.h \
 		/usr/local/include/QtCore/qlocale.h \
-		/usr/local/include/QtGui/qguiapplication_platform.h
+		/usr/local/include/QtGui/qguiapplication_platform.h \
+		/usr/local/include/QtWidgets/QWidget \
+		/usr/local/include/QtWidgets/qwidget.h \
+		/usr/local/include/QtGui/qaction.h \
+		/usr/local/include/QtGui/qkeysequence.h \
+		/usr/local/include/QtGui/qicon.h \
+		/usr/local/include/QtGui/qpalette.h \
+		/usr/local/include/QtWidgets/qsizepolicy.h \
+		/usr/local/include/QtGui/qevent.h \
+		/usr/local/include/QtCore/qiodevice.h \
+		/usr/local/include/QtCore/qurl.h \
+		/usr/local/include/QtGui/qeventpoint.h \
+		/usr/local/include/QtGui/qvector2d.h \
+		/usr/local/include/QtGui/qvectornd.h \
+		/usr/local/include/QtGui/qpointingdevice.h \
+		/usr/local/include/QtGui/qinputdevice.h \
+		/usr/local/include/QtGui/qscreen.h \
+		/usr/local/include/QtCore/QList \
+		/usr/local/include/QtCore/QObject \
+		/usr/local/include/QtCore/QRect \
+		/usr/local/include/QtCore/QSize \
+		/usr/local/include/QtCore/QSizeF \
+		/usr/local/include/QtGui/QTransform \
+		/usr/local/lib/QtGui.framework/Headers/QScreen \
+		/usr/local/lib/QtGui.framework/Headers/qscreen.h \
+		/usr/local/lib/QtCore.framework/Headers/QSize \
+		/usr/local/lib/QtCore.framework/Headers/qsize.h \
+		common/math_utils.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o temp/field.o src/field.cpp
 
 temp/receiver.o: network/receiver.cpp network/receiver.hpp \
@@ -1838,7 +1874,200 @@ temp/receiver.o: network/receiver.cpp network/receiver.hpp \
 		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/map_type_handler.h \
 		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/extension_set.h \
 		proto/cpp/ssl_vision_detection.pb.h \
-		proto/cpp/ssl_vision_geometry.pb.h
+		proto/cpp/ssl_vision_geometry.pb.h \
+		src/field.hpp \
+		/usr/local/lib/QtGui.framework/Headers/QPainter \
+		/usr/local/lib/QtGui.framework/Headers/qpainter.h \
+		/usr/local/include/QtGui/qtguiglobal.h \
+		/usr/local/include/QtCore/qglobal.h \
+		/usr/local/include/QtCore/qtversionchecks.h \
+		/usr/local/include/QtCore/qtconfiginclude.h \
+		/usr/local/include/QtCore/qconfig.h \
+		/usr/local/include/QtCore/qtcore-config.h \
+		/usr/local/include/QtCore/qtconfigmacros.h \
+		/usr/local/include/QtCore/qtcoreexports.h \
+		/usr/local/include/QtCore/qcompilerdetection.h \
+		/usr/local/include/QtCore/qsystemdetection.h \
+		/usr/local/include/QtCore/qprocessordetection.h \
+		/usr/local/include/QtCore/qtdeprecationmarkers.h \
+		/usr/local/include/QtCore/qtpreprocessorsupport.h \
+		/usr/local/include/QtCore/qassert.h \
+		/usr/local/include/QtCore/qtnoop.h \
+		/usr/local/include/QtCore/qtypes.h \
+		/usr/local/include/QtCore/qtversion.h \
+		/usr/local/include/QtCore/qtclasshelpermacros.h \
+		/usr/local/include/QtCore/qtypeinfo.h \
+		/usr/local/include/QtCore/qcontainerfwd.h \
+		/usr/local/include/QtCore/qsysinfo.h \
+		/usr/local/include/QtCore/qlogging.h \
+		/usr/local/include/QtCore/qflags.h \
+		/usr/local/include/QtCore/qcompare_impl.h \
+		/usr/local/include/QtCore/qatomic.h \
+		/usr/local/include/QtCore/qbasicatomic.h \
+		/usr/local/include/QtCore/qatomic_cxx11.h \
+		/usr/local/include/QtCore/qgenericatomic.h \
+		/usr/local/include/QtCore/qconstructormacros.h \
+		/usr/local/include/QtCore/qdarwinhelpers.h \
+		/usr/local/include/QtCore/qexceptionhandling.h \
+		/usr/local/include/QtCore/qforeach.h \
+		/usr/local/include/QtCore/qttypetraits.h \
+		/usr/local/include/QtCore/qfunctionpointer.h \
+		/usr/local/include/QtCore/qglobalstatic.h \
+		/usr/local/include/QtCore/qmalloc.h \
+		/usr/local/include/QtCore/qminmax.h \
+		/usr/local/include/QtCore/qnumeric.h \
+		/usr/local/include/QtCore/qoverload.h \
+		/usr/local/include/QtCore/qswap.h \
+		/usr/local/include/QtCore/qtenvironmentvariables.h \
+		/usr/local/include/QtCore/qtresource.h \
+		/usr/local/include/QtCore/qttranslation.h \
+		/usr/local/include/QtCore/qversiontagging.h \
+		/usr/local/include/QtGui/qtgui-config.h \
+		/usr/local/include/QtGui/qtguiexports.h \
+		/usr/local/include/QtCore/qnamespace.h \
+		/usr/local/include/QtCore/qtmetamacros.h \
+		/usr/local/include/QtCore/qrect.h \
+		/usr/local/include/QtCore/qhashfunctions.h \
+		/usr/local/include/QtCore/qstring.h \
+		/usr/local/include/QtCore/qchar.h \
+		/usr/local/include/QtCore/qstringview.h \
+		/usr/local/include/QtCore/qbytearray.h \
+		/usr/local/include/QtCore/qrefcount.h \
+		/usr/local/include/QtCore/qarraydata.h \
+		/usr/local/include/QtCore/qpair.h \
+		/usr/local/include/QtCore/qarraydatapointer.h \
+		/usr/local/include/QtCore/qarraydataops.h \
+		/usr/local/include/QtCore/qcontainertools_impl.h \
+		/usr/local/include/QtCore/qxptype_traits.h \
+		/usr/local/include/QtCore/q20functional.h \
+		/usr/local/include/QtCore/q20memory.h \
+		/usr/local/include/QtCore/qbytearrayalgorithms.h \
+		/usr/local/include/QtCore/qbytearrayview.h \
+		/usr/local/include/QtCore/qstringfwd.h \
+		/usr/local/include/QtCore/q20type_traits.h \
+		/usr/local/include/QtCore/qstringliteral.h \
+		/usr/local/include/QtCore/qstringalgorithms.h \
+		/usr/local/include/QtCore/qlatin1stringview.h \
+		/usr/local/include/QtCore/qanystringview.h \
+		/usr/local/include/QtCore/qutf8stringview.h \
+		/usr/local/include/QtCore/qstringtokenizer.h \
+		/usr/local/include/QtCore/qstringbuilder.h \
+		/usr/local/include/QtCore/qmargins.h \
+		/usr/local/include/QtCore/q23utility.h \
+		/usr/local/include/QtCore/qsize.h \
+		/usr/local/include/QtCore/qpoint.h \
+		/usr/local/include/QtCore/qscopedpointer.h \
+		/usr/local/include/QtGui/qpixmap.h \
+		/usr/local/include/QtGui/qpaintdevice.h \
+		/usr/local/include/QtGui/qwindowdefs.h \
+		/usr/local/include/QtCore/qobjectdefs.h \
+		/usr/local/include/QtCore/qobjectdefs_impl.h \
+		/usr/local/include/QtCore/qfunctionaltools_impl.h \
+		/usr/local/include/QtGui/qcolor.h \
+		/usr/local/include/QtGui/qrgb.h \
+		/usr/local/include/QtCore/qstringlist.h \
+		/usr/local/include/QtCore/qlist.h \
+		/usr/local/include/QtCore/qiterator.h \
+		/usr/local/include/QtCore/qbytearraylist.h \
+		/usr/local/include/QtCore/qalgorithms.h \
+		/usr/local/include/QtCore/qstringmatcher.h \
+		/usr/local/include/QtGui/qrgba64.h \
+		/usr/local/include/QtCore/qshareddata.h \
+		/usr/local/include/QtGui/qimage.h \
+		/usr/local/include/QtGui/qpixelformat.h \
+		/usr/local/include/QtGui/qtransform.h \
+		/usr/local/include/QtGui/qpolygon.h \
+		/usr/local/include/QtGui/qregion.h \
+		/usr/local/include/QtCore/qdatastream.h \
+		/usr/local/include/QtCore/qiodevicebase.h \
+		/usr/local/include/QtCore/qline.h \
+		/usr/local/include/QtGui/qtextoption.h \
+		/usr/local/include/QtCore/qmetatype.h \
+		/usr/local/include/QtCore/qcompare.h \
+		/usr/local/include/QtCore/qfloat16.h \
+		/usr/local/include/QtCore/qmath.h \
+		/usr/local/include/QtCore/qiterable.h \
+		/usr/local/include/QtCore/qmetacontainer.h \
+		/usr/local/include/QtCore/qcontainerinfo.h \
+		/usr/local/include/QtCore/qtaggedpointer.h \
+		/usr/local/include/QtCore/qscopeguard.h \
+		/usr/local/include/QtGui/qpen.h \
+		/usr/local/include/QtGui/qbrush.h \
+		/usr/local/include/QtGui/qfontinfo.h \
+		/usr/local/include/QtGui/qfont.h \
+		/usr/local/include/QtGui/qfontmetrics.h \
+		/usr/local/lib/QtWidgets.framework/Headers/QApplication \
+		/usr/local/lib/QtWidgets.framework/Headers/qapplication.h \
+		/usr/local/include/QtWidgets/qtwidgetsglobal.h \
+		/usr/local/include/QtWidgets/qtwidgets-config.h \
+		/usr/local/include/QtWidgets/qtwidgetsexports.h \
+		/usr/local/include/QtCore/qcoreapplication.h \
+		/usr/local/include/QtCore/qcoreevent.h \
+		/usr/local/include/QtCore/qeventloop.h \
+		/usr/local/include/QtCore/qobject.h \
+		/usr/local/include/QtCore/qobject_impl.h \
+		/usr/local/include/QtCore/qbindingstorage.h \
+		/usr/local/include/QtCore/qnativeinterface.h \
+		/usr/local/include/QtCore/qdebug.h \
+		/usr/local/include/QtCore/qtextstream.h \
+		/usr/local/include/QtCore/qstringconverter_base.h \
+		/usr/local/include/QtCore/qcontiguouscache.h \
+		/usr/local/include/QtCore/qsharedpointer.h \
+		/usr/local/include/QtCore/qsharedpointer_impl.h \
+		/usr/local/include/QtCore/qmap.h \
+		/usr/local/include/QtCore/qshareddata_impl.h \
+		/usr/local/include/QtCore/qset.h \
+		/usr/local/include/QtCore/qhash.h \
+		/usr/local/include/QtCore/qvarlengtharray.h \
+		/usr/local/include/QtCore/qcoreapplication_platform.h \
+		/usr/local/include/QtCore/qfuture.h \
+		/usr/local/include/QtCore/qfutureinterface.h \
+		/usr/local/include/QtCore/qmutex.h \
+		/usr/local/include/QtCore/qdeadlinetimer.h \
+		/usr/local/include/QtCore/qelapsedtimer.h \
+		/usr/local/include/QtCore/qtsan_impl.h \
+		/usr/local/include/QtCore/qresultstore.h \
+		/usr/local/include/QtCore/qfuture_impl.h \
+		/usr/local/include/QtCore/qthreadpool.h \
+		/usr/local/include/QtCore/qthread.h \
+		/usr/local/include/QtCore/qrunnable.h \
+		/usr/local/include/QtCore/qexception.h \
+		/usr/local/include/QtCore/qpointer.h \
+		/usr/local/include/QtCore/qpromise.h \
+		/usr/local/include/QtCore/qvariant.h \
+		/usr/local/include/QtGui/qcursor.h \
+		/usr/local/include/QtGui/qbitmap.h \
+		/usr/local/include/QtGui/qguiapplication.h \
+		/usr/local/include/QtGui/qinputmethod.h \
+		/usr/local/include/QtCore/qlocale.h \
+		/usr/local/include/QtGui/qguiapplication_platform.h \
+		/usr/local/include/QtWidgets/QWidget \
+		/usr/local/include/QtWidgets/qwidget.h \
+		/usr/local/include/QtGui/qaction.h \
+		/usr/local/include/QtGui/qkeysequence.h \
+		/usr/local/include/QtGui/qicon.h \
+		/usr/local/include/QtGui/qpalette.h \
+		/usr/local/include/QtWidgets/qsizepolicy.h \
+		/usr/local/include/QtGui/qevent.h \
+		/usr/local/include/QtCore/qiodevice.h \
+		/usr/local/include/QtCore/qurl.h \
+		/usr/local/include/QtGui/qeventpoint.h \
+		/usr/local/include/QtGui/qvector2d.h \
+		/usr/local/include/QtGui/qvectornd.h \
+		/usr/local/include/QtGui/qpointingdevice.h \
+		/usr/local/include/QtGui/qinputdevice.h \
+		/usr/local/include/QtGui/qscreen.h \
+		/usr/local/include/QtCore/QList \
+		/usr/local/include/QtCore/QObject \
+		/usr/local/include/QtCore/QRect \
+		/usr/local/include/QtCore/QSize \
+		/usr/local/include/QtCore/QSizeF \
+		/usr/local/include/QtGui/QTransform \
+		/usr/local/lib/QtGui.framework/Headers/QScreen \
+		/usr/local/lib/QtGui.framework/Headers/qscreen.h \
+		/usr/local/lib/QtCore.framework/Headers/QSize \
+		/usr/local/lib/QtCore.framework/Headers/qsize.h \
+		common/math_utils.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o temp/receiver.o network/receiver.cpp
 
 temp/grSim_Commands.pb.o: proto/cpp/grSim_Commands.pb.cc proto/cpp/grSim_Commands.pb.h \

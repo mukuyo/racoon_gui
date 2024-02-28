@@ -25,6 +25,7 @@ macx {
 INCLUDEPATH += \
     src \
     proto/cpp/ \
+    common/ \
 
 # You can make your code fail to compile if you use deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -37,6 +38,7 @@ INCLUDEPATH += \
 HEADERS += \
     src/field.hpp \
     network/receiver.hpp \
+    common/math_utils.hpp \
     proto/cpp/grSim_Commands.pb.h \
     proto/cpp/grSim_Packet.pb.h \
     proto/cpp/grSim_Replacement.pb.h \

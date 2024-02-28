@@ -39,8 +39,24 @@ void Receiver::recv()
             {
                 ball.x = info.detection().balls()[i].x();
                 ball.y = info.detection().balls()[i].y();
-                Field::paint(ball);
             }
+            for (int i = 0; i < info.detection().robots_blue().size(); i++)
+            {
+                int robot_id = info.detection().robots_blue()[i].robot_id();
+                blue_robots[robot_id].id = info.detection().robots_blue()[i].robot_id();
+                blue_robots[robot_id].x = info.detection().robots_blue()[i].x();
+                blue_robots[robot_id].y = info.detection().robots_blue()[i].y();
+                blue_robots[robot_id].theta = info.detection().robots_blue()[i].orientation();
+            }
+            for (int i = 0; i < info.detection().robots_yellow().size(); i++)
+            {
+                int robot_id = info.detection().robots_yellow()[i].robot_id();
+                yellow_robots[robot_id].id = info.detection().robots_yellow()[i].robot_id();
+                yellow_robots[robot_id].x = info.detection().robots_yellow()[i].x();
+                yellow_robots[robot_id].y = info.detection().robots_yellow()[i].y();
+                yellow_robots[robot_id].theta = info.detection().robots_yellow()[i].orientation();
+            }
+            Field::paint(ball, blue_robots, yellow_robots);
         }
     }
 }
