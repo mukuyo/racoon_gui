@@ -53,19 +53,14 @@ void Field::paintEvent(QPaintEvent *event)
     painter.drawEllipse(field_center.x() + ball_info.x*ratio, field_center.y() - ball_info.y*ratio, 3, 3);
 
     //robot
-    for(int i = 0; i < 11; i++)
+    for(size_t j = 0; j < available_info.blue_robots.size(); j++)
     {
+        int i = available_info.blue_robots[j];
         painter.setBrush(Qt::blue);
         painter.setPen(Qt::black);
         painter.drawChord(
             field_center.x() + blue_robots_info[i].x*ratio - (90*ratio), field_center.y() - blue_robots_info[i].y*ratio - (90*ratio), 180*ratio, 180*ratio,
             int(degrees(radian_normalize(blue_robots_info[i].theta + radians(45))) * 16),
-            275 * 16);
-
-        painter.setBrush(Qt::yellow);
-        painter.drawChord(
-            field_center.x() + yellow_robots_info[i].x*ratio - (90*ratio), field_center.y() - yellow_robots_info[i].y*ratio - (90*ratio), 180*ratio, 180*ratio,
-            int(degrees(radian_normalize(yellow_robots_info[i].theta + radians(45))) * 16),
             275 * 16);
 
         robot_center_p1 = QPointF(
@@ -81,7 +76,15 @@ void Field::paintEvent(QPaintEvent *event)
             - 5.0 * sin(radian_normalize(-blue_robots_info[i].theta - M_PI))
         );
         painter.drawLine(robot_center_p1, robot_center_p2);
-
+    }
+    for(size_t j = 0; j < available_info.yellow_robots.size(); j++)
+    {
+        int i = available_info.yellow_robots[j];
+        painter.setBrush(Qt::yellow);
+        painter.drawChord(
+            field_center.x() + yellow_robots_info[i].x*ratio - (90*ratio), field_center.y() - yellow_robots_info[i].y*ratio - (90*ratio), 180*ratio, 180*ratio,
+            int(degrees(radian_normalize(yellow_robots_info[i].theta + radians(45))) * 16),
+            275 * 16);
         robot_center_p1 = QPointF(
             yellow_robots_info[i].x*ratio + field_center.x(),
             -yellow_robots_info[i].y*ratio + field_center.y()
@@ -95,6 +98,7 @@ void Field::paintEvent(QPaintEvent *event)
             - 5.0 * sin(radian_normalize(-yellow_robots_info[i].theta - M_PI))
         );
         painter.drawLine(robot_center_p1, robot_center_p2);
+    
     }
 
     //Console
@@ -108,17 +112,19 @@ void Field::paintEvent(QPaintEvent *event)
     message_label.move(0, slide_height*2 + field_height - 1);
     message_text.move(0, slide_height*2 + field_height + slide_height/1.5);
     message_text.setGeometry(2, slide_height*2 + field_height + slide_height/1.5 + 2, 1000, 10);
-    message_text.setText(QString::number(ball_info.x));
+    message_text.setText(QString::number(display_num));
     
 }
 
-void Field::paint(BallInfo ball, RobotInfo *blue_robots, RobotInfo *yellow_robots)
+void Field::paint(BallInfo ball, RobotInfo *blue_robots, RobotInfo *yellow_robots, AvailableInfo available)
 {
     ball_info = ball;
+    available_info = available;
     for(int i = 0; i < 11; i++)
     {
         blue_robots_info[i] = blue_robots[i];
         yellow_robots_info[i] = yellow_robots[i];
     }
+    display_num = ball_info.x;
     Field::update();
 }

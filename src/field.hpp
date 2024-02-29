@@ -10,6 +10,12 @@
 #include <iostream>
 #include "../common/math_utils.hpp"
 
+struct AvailableInfo
+{
+    std::vector<int> blue_robots;
+    std::vector<int> yellow_robots;
+};
+
 struct BallInfo
 {
     float x;
@@ -24,6 +30,8 @@ struct RobotInfo
     float y;
     float speed;
     float theta;
+    bool is_visible;
+    bool is_online;
 };
 
 class Field : public QWidget, public Utils
@@ -31,7 +39,7 @@ class Field : public QWidget, public Utils
     Q_OBJECT
 public:
     Field(QWidget *parent = nullptr);
-    void paint(BallInfo ball, RobotInfo *blue_robots, RobotInfo *yellow_robots);
+    void paint(BallInfo ball, RobotInfo *blue_robots, RobotInfo *yellow_robots, AvailableInfo available);
 
 protected:
     void paintEvent(QPaintEvent *event);
@@ -47,6 +55,7 @@ protected:
     BallInfo ball_info;
     RobotInfo blue_robots_info[11];
     RobotInfo yellow_robots_info[11];
+    AvailableInfo available_info;
 
     int screen_height;
     int screen_width;
@@ -56,6 +65,8 @@ protected:
     int field_height;
 
     float ratio;
+
+    int display_num;
 };
 
 #endif

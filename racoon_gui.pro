@@ -39,39 +39,13 @@ HEADERS += \
     src/field.hpp \
     network/receiver.hpp \
     common/math_utils.hpp \
-    proto/cpp/grSim_Commands.pb.h \
-    proto/cpp/grSim_Packet.pb.h \
-    proto/cpp/grSim_Replacement.pb.h \
-    proto/cpp/grSim_Robotstatus.pb.h \
-    proto/cpp/ssl_gc_common.pb.h \
-    proto/cpp/ssl_gc_geometry.pb.h \
-    proto/cpp/ssl_gc_referee_message.pb.h \
-    proto/cpp/ssl_gc_state.pb.h \
-    proto/cpp/ssl_gc_game_event.pb.h \
-    proto/cpp/ssl_vision_detection.pb.h \
-    proto/cpp/ssl_vision_geometry.pb.h \
-    proto/cpp/ssl_vision_wrapper.pb.h \
-    proto/cpp/ssl_vision_wrapper_tracked.pb.h \
-    proto/cpp/ssl_vision_detection_tracked.pb.h \
+    proto/cpp/to_racoongui.pb.h \
 
 SOURCES += \
     racoon_gui.cpp \
     src/field.cpp \
     network/receiver.cpp \
-    proto/cpp/grSim_Commands.pb.cc \
-    proto/cpp/grSim_Packet.pb.cc \
-    proto/cpp/grSim_Replacement.pb.cc \
-    proto/cpp/grSim_Robotstatus.pb.cc \
-    proto/cpp/ssl_gc_common.pb.cc \
-    proto/cpp/ssl_gc_geometry.pb.cc \    
-    proto/cpp/ssl_gc_referee_message.pb.cc \
-    proto/cpp/ssl_gc_state.pb.cc \
-    proto/cpp/ssl_gc_game_event.pb.cc \
-    proto/cpp/ssl_vision_detection.pb.cc \
-    proto/cpp/ssl_vision_geometry.pb.cc \
-    proto/cpp/ssl_vision_wrapper.pb.cc \
-    proto/cpp/ssl_vision_wrapper_tracked.pb.cc \
-    proto/cpp/ssl_vision_detection_tracked.pb.cc \
+    proto/cpp/to_racoongui.pb.cc \
 
 
 win32 {
