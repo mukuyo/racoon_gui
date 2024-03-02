@@ -1,6 +1,6 @@
 #include "field.hpp"
 
-Field::Field(QWidget *parent) : QWidget(parent), Observer(), Utils()
+Field::Field(QWidget *parent) : QWidget(parent), Utils()
 {
     screen = QGuiApplication::primaryScreen();
     slide_width = 25;

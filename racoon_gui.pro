@@ -37,7 +37,6 @@ INCLUDEPATH += \
 # Input
 HEADERS += \
     src/field.hpp \
-    src/observer.hpp \
     network/receiver.hpp \
     network/sender.hpp \
     common/math_utils.hpp \
@@ -47,7 +46,6 @@ HEADERS += \
 SOURCES += \
     racoon_gui.cpp \
     src/field.cpp \
-    src/observer.cpp \
     network/receiver.cpp \
     network/sender.cpp \
     proto/cpp/receive_racoonai.pb.cc \

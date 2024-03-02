@@ -54,14 +54,12 @@ OBJECTS_DIR   = temp/
 
 SOURCES       = racoon_gui.cpp \
 		src/field.cpp \
-		src/observer.cpp \
 		network/receiver.cpp \
 		network/sender.cpp \
 		proto/cpp/receive_racoonai.pb.cc \
 		proto/cpp/send_racoonai.pb.cc temp/moc_field.cpp
 OBJECTS       = temp/racoon_gui.o \
 		temp/field.o \
-		temp/observer.o \
 		temp/receiver.o \
 		temp/sender.o \
 		temp/receive_racoonai.pb.o \
@@ -380,14 +378,12 @@ DIST          = /usr/local/share/qt/mkspecs/features/spec_pre.prf \
 		/usr/local/share/qt/mkspecs/features/yacc.prf \
 		/usr/local/share/qt/mkspecs/features/lex.prf \
 		racoon_gui.pro src/field.hpp \
-		src/observer.hpp \
 		network/receiver.hpp \
 		network/sender.hpp \
 		common/math_utils.hpp \
 		proto/cpp/receive_racoonai.pb.h \
 		proto/cpp/send_racoonai.pb.h racoon_gui.cpp \
 		src/field.cpp \
-		src/observer.cpp \
 		network/receiver.cpp \
 		network/sender.cpp \
 		proto/cpp/receive_racoonai.pb.cc \
@@ -1084,8 +1080,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/local/share/qt/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents src/field.hpp src/observer.hpp network/receiver.hpp network/sender.hpp common/math_utils.hpp proto/cpp/receive_racoonai.pb.h proto/cpp/send_racoonai.pb.h $(DISTDIR)/
-	$(COPY_FILE) --parents racoon_gui.cpp src/field.cpp src/observer.cpp network/receiver.cpp network/sender.cpp proto/cpp/receive_racoonai.pb.cc proto/cpp/send_racoonai.pb.cc $(DISTDIR)/
+	$(COPY_FILE) --parents src/field.hpp network/receiver.hpp network/sender.hpp common/math_utils.hpp proto/cpp/receive_racoonai.pb.h proto/cpp/send_racoonai.pb.h $(DISTDIR)/
+	$(COPY_FILE) --parents racoon_gui.cpp src/field.cpp network/receiver.cpp network/sender.cpp proto/cpp/receive_racoonai.pb.cc proto/cpp/send_racoonai.pb.cc $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -1321,7 +1317,54 @@ temp/moc_field.cpp: src/field.hpp \
 		/usr/local/include/QtGui/qpicture.h \
 		/usr/local/include/QtGui/qtextdocument.h \
 		common/math_utils.hpp \
-		src/observer.hpp \
+		network/receiver.hpp \
+		proto/cpp/receive_racoonai.pb.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/port_def.inc \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/port_undef.inc \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/io/coded_stream.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/common.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/macros.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/platform_macros.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/port.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/stringpiece.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/hash.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/logging.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/status.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/strutil.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/port.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arena.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arena_impl.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arenaz_sampler.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arenastring.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/explicitly_constructed.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_message_util.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/once.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/any.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/message_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/metadata_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/has_bits.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/implicit_weak_message.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/repeated_field.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/repeated_ptr_field.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/wire_format_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/casts.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_message_reflection.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/descriptor.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/mutex.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_enum_reflection.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_enum_util.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/unknown_field_set.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/io/zero_copy_stream_impl_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/callback.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/io/zero_copy_stream.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/stl_util.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/parse_context.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/endian.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/inlined_string_field.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/message.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/map.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/map_type_handler.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/extension_set.h \
 		temp/moc_predefs.h \
 		/usr/local/share/qt/libexec/moc
 	/usr/local/share/qt/libexec/moc $(DEFINES) --include /Users/mukuyo/ws/ssl_ws/racoon_gui/temp/moc_predefs.h -I/usr/local/share/qt/mkspecs/macx-clang -I/Users/mukuyo/ws/ssl_ws/racoon_gui -I/Users/mukuyo/ws/ssl_ws/racoon_gui/src -I/Users/mukuyo/ws/ssl_ws/racoon_gui/proto/cpp -I/Users/mukuyo/ws/ssl_ws/racoon_gui/common -I/usr/local/Cellar/protobuf@21/21.12/include -I/usr/local/Cellar/zlib/include -I/usr/local/Cellar/Eigen -I/usr/local/lib/QtWidgets.framework/Headers -I/usr/local/lib/QtQuick.framework/Headers -I/usr/local/lib/QtOpenGL.framework/Headers -I/usr/local/lib/QtGui.framework/Headers -I/usr/local/lib/QtQmlModels.framework/Headers -I/usr/local/lib/QtQml.framework/Headers -I/usr/local/include -I/usr/local/include/QtQmlIntegration -I/usr/local/lib/QtNetwork.framework/Headers -I/usr/local/lib/QtCore.framework/Headers -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1 -I/Library/Developer/CommandLineTools/usr/lib/clang/15.0.0/include -I/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -I/Library/Developer/CommandLineTools/usr/include -F/usr/local/lib src/field.hpp -o temp/moc_field.cpp
@@ -1546,7 +1589,6 @@ temp/racoon_gui.o: racoon_gui.cpp /usr/local/include/QtWidgets/QApplication \
 		/usr/local/lib/QtWidgets.framework/Headers/QLabel \
 		/usr/local/lib/QtWidgets.framework/Headers/qlabel.h \
 		common/math_utils.hpp \
-		src/observer.hpp \
 		network/receiver.hpp \
 		proto/cpp/receive_racoonai.pb.h \
 		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/port_def.inc \
@@ -1797,11 +1839,55 @@ temp/field.o: src/field.cpp src/field.hpp \
 		/usr/local/include/QtGui/qpicture.h \
 		/usr/local/include/QtGui/qtextdocument.h \
 		common/math_utils.hpp \
-		src/observer.hpp
+		network/receiver.hpp \
+		proto/cpp/receive_racoonai.pb.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/port_def.inc \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/port_undef.inc \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/io/coded_stream.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/common.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/macros.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/platform_macros.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/port.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/stringpiece.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/hash.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/logging.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/status.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/strutil.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/port.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arena.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arena_impl.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arenaz_sampler.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/arenastring.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/explicitly_constructed.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_message_util.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/once.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/any.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/message_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/metadata_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/has_bits.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/implicit_weak_message.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/repeated_field.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/repeated_ptr_field.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/wire_format_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/casts.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_message_reflection.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/descriptor.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/mutex.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_enum_reflection.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/generated_enum_util.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/unknown_field_set.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/io/zero_copy_stream_impl_lite.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/callback.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/io/zero_copy_stream.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/stubs/stl_util.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/parse_context.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/endian.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/inlined_string_field.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/message.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/map.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/map_type_handler.h \
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/extension_set.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o temp/field.o src/field.cpp
-
-temp/observer.o: src/observer.cpp src/observer.hpp
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o temp/observer.o src/observer.cpp
 
 temp/receiver.o: network/receiver.cpp network/receiver.hpp \
 		proto/cpp/receive_racoonai.pb.h \
@@ -1850,8 +1936,7 @@ temp/receiver.o: network/receiver.cpp network/receiver.hpp \
 		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/message.h \
 		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/map.h \
 		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/map_type_handler.h \
-		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/extension_set.h \
-		src/observer.hpp
+		/usr/local/Cellar/protobuf@21/21.12/include/google/protobuf/extension_set.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o temp/receiver.o network/receiver.cpp
 
 temp/sender.o: network/sender.cpp network/sender.hpp \

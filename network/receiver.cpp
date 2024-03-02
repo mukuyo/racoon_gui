@@ -1,6 +1,6 @@
 #include "receiver.hpp"
 
-Receiver::Receiver() : Observer()
+Receiver::Receiver()
 {
     sockfd = socket(AF_INET, SOCK_DGRAM, 0);
     if (sockfd < 0) {

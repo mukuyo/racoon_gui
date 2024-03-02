@@ -10,11 +10,9 @@
 #include <iostream>
 #include "../common/math_utils.hpp"
 #include "../network/receiver.hpp"
-#include "observer.hpp"
 
-class Field : public QWidget, public Observer, public Utils
+class Field : public QWidget, public Utils
 {
-    Q_OBJECT
 public:
     Field(QWidget *parent = nullptr);
     void paint(Receiver& receiver);

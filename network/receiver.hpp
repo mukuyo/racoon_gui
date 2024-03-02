@@ -9,10 +9,10 @@
 #include <string.h>
 #include <vector>
 #include "receive_racoonai.pb.h"
-#include "../src/observer.hpp"
+#include "../common/math_utils.hpp"
 
 // using namespace std;
-class Receiver : public Observer
+class Receiver
 {
 public:
     Receiver();

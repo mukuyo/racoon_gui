@@ -3,6 +3,30 @@
 
 #include <iostream>
 
+struct AvailableInfo
+{
+    std::vector<int> blue_robots;
+    std::vector<int> yellow_robots;
+};
+
+struct BallInfo
+{
+    float x;
+    float y;
+    float speed;
+};
+
+struct RobotInfo
+{
+    uint32_t id;
+    float x;
+    float y;
+    float speed;
+    float theta;
+    bool is_visible;
+    bool is_online;
+};
+
 class Utils
 {
 public:
