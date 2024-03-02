@@ -1,6 +1,6 @@
 #include "receiver.hpp"
 
-Receiver::Receiver() : Field()
+Receiver::Receiver() : Observer()
 {
     sockfd = socket(AF_INET, SOCK_DGRAM, 0);
     if (sockfd < 0) {
@@ -23,7 +23,7 @@ Receiver::Receiver() : Field()
         std::cerr << "Bind failed" << std::endl;
         ::close(sockfd);
     }
-    Field::show();
+    
 }
 
 void Receiver::recv()
@@ -62,11 +62,10 @@ void Receiver::recv()
                 blue_available_ids.push_back(info.available_ids().our_available_ids()[i]);
             for (int i = 0; i < info.available_ids().their_available_ids().size(); i++)
                 yellow_available_ids.push_back(info.available_ids().their_available_ids()[i]);
-            available_info.blue_robots = blue_available_ids;
-            available_info.yellow_robots = yellow_available_ids;
+            available.blue_robots = blue_available_ids;
+            available.yellow_robots = yellow_available_ids;
             ball.x = info.ball().x();
             ball.y = info.ball().y();
-            Field::paint(ball, blue_robots, yellow_robots, available_info);
         }
     }
 }

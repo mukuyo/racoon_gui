@@ -37,15 +37,21 @@ INCLUDEPATH += \
 # Input
 HEADERS += \
     src/field.hpp \
+    src/observer.hpp \
     network/receiver.hpp \
+    network/sender.hpp \
     common/math_utils.hpp \
-    proto/cpp/to_racoongui.pb.h \
+    proto/cpp/receive_racoonai.pb.h \
+    proto/cpp/send_racoonai.pb.h \
 
 SOURCES += \
     racoon_gui.cpp \
     src/field.cpp \
+    src/observer.cpp \
     network/receiver.cpp \
-    proto/cpp/to_racoongui.pb.cc \
+    network/sender.cpp \
+    proto/cpp/receive_racoonai.pb.cc \
+    proto/cpp/send_racoonai.pb.cc \
 
 
 win32 {

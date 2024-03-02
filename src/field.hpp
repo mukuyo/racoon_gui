@@ -9,37 +9,15 @@
 #include <QLabel>
 #include <iostream>
 #include "../common/math_utils.hpp"
+#include "../network/receiver.hpp"
+#include "observer.hpp"
 
-struct AvailableInfo
-{
-    std::vector<int> blue_robots;
-    std::vector<int> yellow_robots;
-};
-
-struct BallInfo
-{
-    float x;
-    float y;
-    float speed;
-};
-
-struct RobotInfo
-{
-    uint32_t id;
-    float x;
-    float y;
-    float speed;
-    float theta;
-    bool is_visible;
-    bool is_online;
-};
-
-class Field : public QWidget, public Utils
+class Field : public QWidget, public Observer, public Utils
 {
     Q_OBJECT
 public:
     Field(QWidget *parent = nullptr);
-    void paint(BallInfo ball, RobotInfo *blue_robots, RobotInfo *yellow_robots, AvailableInfo available);
+    void paint(Receiver& receiver);
 
 protected:
     void paintEvent(QPaintEvent *event);
@@ -51,11 +29,11 @@ protected:
     QPoint field_center;
     QPointF robot_center_p1;
     QPointF robot_center_p2;
-
-    BallInfo ball_info;
-    RobotInfo blue_robots_info[11];
-    RobotInfo yellow_robots_info[11];
-    AvailableInfo available_info;
+    
+    BallInfo ball;
+    RobotInfo blue_robots[16];
+    RobotInfo yellow_robots[16];
+    AvailableInfo available;
 
     int screen_height;
     int screen_width;

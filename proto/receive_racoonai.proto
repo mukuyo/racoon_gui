@@ -56,7 +56,7 @@ message Geometry_Information {
   required float goal_y = 15;
 }
 
-message RacoonGUI_Packet {
+message ReceiveGUI_Packet {
     repeated Robot_Information our_robots = 1;
     repeated Robot_Information their_robots = 2;
     required Ball_Information ball = 3;

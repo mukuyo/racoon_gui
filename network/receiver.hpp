@@ -8,28 +8,30 @@
 #include <unistd.h>
 #include <string.h>
 #include <vector>
-#include "to_racoongui.pb.h"
-#include "../src/field.hpp"
+#include "receive_racoonai.pb.h"
+#include "../src/observer.hpp"
 
 // using namespace std;
-class Receiver : public Field
+class Receiver : public Observer
 {
 public:
     Receiver();
     void recv();
+
     BallInfo ball;
     RobotInfo blue_robots[16];
     RobotInfo yellow_robots[16];
-    AvailableInfo available_info;
+    AvailableInfo available;
+
+private:
     std::vector<int> blue_available_ids;
     std::vector<int> yellow_available_ids;
 
-private:
     int sockfd;
     struct sockaddr_in servaddr;
     struct ip_mreq mreq;
 
-    RacoonGUI_Packet info;
+    ReceiveGUI_Packet info;
 };
 
 #endif
